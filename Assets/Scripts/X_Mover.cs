@@ -6,8 +6,14 @@ public class X_Mover : MonoBehaviour
 {
     public NetMasterScript netMaster;
 
-    public int netX = 0;
-    public int netY = 0;
+    [HideInInspector]
+    public int netX, netY;
+
+    void Awake()
+    {
+        netX = netMaster.netWidth / 2;
+        netY = netMaster.netHeight / 2;
+    }
 
     void Start()
     {
@@ -53,7 +59,7 @@ public class X_Mover : MonoBehaviour
         {
             // Shifts to new location
             float x, y;
-            netMaster.NetXYToFieldXY(targetNetX, targetNetY, out x, out y);
+            netMaster.ConvertNetXYToFieldXY(targetNetX, targetNetY, out x, out y);
             transform.position = new Vector3(x, y, transform.position.z);
 
             // Registers at new cell in netMaster

@@ -13,10 +13,7 @@ public class NetMasterScript : MonoBehaviour
     public float cellSize = 1.5f;
 
     [HideInInspector]
-    public float zeroX;
-
-    [HideInInspector]
-    public float zeroY;
+    public float zeroX, zeroY;
 
     int[,] _net;
 
@@ -24,6 +21,7 @@ public class NetMasterScript : MonoBehaviour
     {
         _net = new int[netWidth, netHeight];
 
+        // calculates x & y of zero cell
         zeroX = (centerX - (netWidth / 2)) * cellSize;
         zeroY = (centerY - (netHeight / 2)) * cellSize;
 
@@ -32,8 +30,6 @@ public class NetMasterScript : MonoBehaviour
 
         if(netHeight % 2 == 0)
             zeroY += 0.5f * cellSize;
-
-        Debug.Log(zeroX + " " + zeroY);
     }
 
     void Start()
@@ -41,13 +37,13 @@ public class NetMasterScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Transform netX & netY to field coordinates
+    /// Convert netX & netY to field coordinates
     /// </summary>
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <param name="fieldX"> X of center of cell at netX, netY </param>
     /// <param name="fieldY"> Y of center of cell at netX, netY </param>
-    public void NetXYToFieldXY(int netX, int netY, out float fieldX, out float fieldY)
+    public void ConvertNetXYToFieldXY(int netX, int netY, out float fieldX, out float fieldY)
     {
         fieldX = zeroX + netX * cellSize;
         fieldY = zeroY + netY * cellSize;

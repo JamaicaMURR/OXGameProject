@@ -15,8 +15,8 @@ public class NetArrangerScript : MonoBehaviour
 
         float halfCellSize = 0.5f * netMaster.cellSize;
 
-        float x = netMaster.pivotX - halfCellSize;
-        float y = netMaster.pivotY - halfCellSize;
+        float x = netMaster.zeroX - halfCellSize;
+        float y = netMaster.zeroY - halfCellSize;
 
         for(int i = 0; i <= netMaster.netWidth; i++)
         {
