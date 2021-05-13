@@ -105,6 +105,28 @@ public class NetMasterScript : MonoBehaviour
         _net[netX, netY] = state;
     }
 
+    public void GetCellNetXY(int pointNetX, int pointNetY, Direction dir, out int targetNetX, out int targetNetY)
+    {
+        targetNetX = pointNetX;
+        targetNetY = pointNetY;
+
+        switch(dir)
+        {
+            case Direction.Up:
+                targetNetY++;
+                break;
+            case Direction.Down:
+                targetNetY--;
+                break;
+            case Direction.Left:
+                targetNetX--;
+                break;
+            case Direction.Right:
+                targetNetX++;
+                break;
+        }
+    }
+
     void CheckNetXY(int netX, int netY)
     {
         netX.ExNotBelow(0, "netX").ExNotAbove(netWidth - 1, "netX");
