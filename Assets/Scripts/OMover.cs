@@ -5,7 +5,10 @@ using Bycicles.Ranges;
 
 public class OMover : MonoBehaviour
 {
+    public GameObject ghostPrefab;
+
     public NetMasterScript netMaster;
+    public OSettings settings;
     public Direction movingDirection;
 
     float _speed, _destinationFieldX, _destinationFieldY;
@@ -13,16 +16,20 @@ public class OMover : MonoBehaviour
     public int _netX, _netY, _destinationNetX, _destinationNetY;
 
     Vector3 _destinationPoint;
-
-    OSettings settings;
+    GameObject _ghost;
+    Transform _ghostTransform;
 
     Action UpdateDeals;
 
     void Start()
     {
-        settings = netMaster.GetComponent<OSettings>();
         settings.OnSpeedChange += RefreshSpeed;
+
         UpdateDeals = StandardMoving;
+
+        // Ghost spawning
+        _ghost = Instantiate(ghostPrefab);
+        _ghostTransform = _ghost.GetComponent<Transform>();
 
         RefreshSpeed();
         LookAround();
@@ -63,6 +70,11 @@ public class OMover : MonoBehaviour
         transform.Translate(jump);
     }
 
+    void PullGhost()
+    {
+        _ghostTransform.position = new Vector3(transform.position.x, transform.position.y, _ghostTransform.position.z);
+    }
+
     void OrangeKemping()
     {
 
@@ -70,6 +82,11 @@ public class OMover : MonoBehaviour
 
     void LookAround()
     {
+        PullGhost();
+
+        if(netMaster.GetCellState(_netX, _netY) == 3)
+            Merge();
+
         int state = netMaster.GetCellState(_netX, _netY, movingDirection);
 
         switch(state)
@@ -104,12 +121,22 @@ public class OMover : MonoBehaviour
 
     void BecomeOrange()
     {
+        // FixMe
         UpdateDeals = OrangeKemping;
+        Destroy(_ghost);
     }
+
+    void Merge()
+    {
+        // FixMe
+    }
+
 
     void FinishRun()
     {
+        // FixMe
         netMaster.SetCellState(_netX, _netY, 0);
+        Destroy(_ghost);
         Destroy(gameObject);
     }
 
