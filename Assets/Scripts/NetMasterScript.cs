@@ -14,9 +14,13 @@ public class NetMasterScript : MonoBehaviour
 
     int[,] _net;
 
-    void Start()
+    void Awake()
     {
         _net = new int[netWidth, netHeight];
+    }
+
+    void Start()
+    {
     }
 
     /// <summary>
@@ -26,7 +30,7 @@ public class NetMasterScript : MonoBehaviour
     /// <param name="netY"></param>
     /// <param name="fieldX"> X of center of cell at netX, netY </param>
     /// <param name="fieldY"> Y of center of cell at netX, netY </param>
-    public void ToFieldXY(int netX, int netY, out float fieldX, out float fieldY)
+    public void NetXYToFieldXY(int netX, int netY, out float fieldX, out float fieldY)
     {
         fieldX = pivotX + netX * cellSize;
         fieldY = pivotY + netY * cellSize;
@@ -47,8 +51,8 @@ public class NetMasterScript : MonoBehaviour
     {
         int result = 4;
 
-        if(netX > 0 && netX < netWidth)
-            if(netY > 0 && netY < netHeight)
+        if(netX >= 0 && netX < netWidth)
+            if(netY >= 0 && netY < netHeight)
                 result = _net[netX, netY];
 
         return result;
@@ -68,26 +72,11 @@ public class NetMasterScript : MonoBehaviour
     /// <returns></returns>
     public int GetCellState(int netX, int netY, Direction dir)
     {
-        int targCellX = netX;
-        int targCellY = netY;
+        int targetCellX, targetCellY;
 
-        switch(dir)
-        {
-            case Direction.Up:
-                targCellY++;
-                break;
-            case Direction.Down:
-                targCellY--;
-                break;
-            case Direction.Left:
-                targCellX--;
-                break;
-            case Direction.Right:
-                targCellX++;
-                break;
-        }
+        GetRelativeCellNetXY(netX, netY, dir, out targetCellX, out targetCellY);
 
-        return GetCellState(targCellX, targCellY);
+        return GetCellState(targetCellX, targetCellY);
     }
 
     /// <summary>
@@ -105,7 +94,7 @@ public class NetMasterScript : MonoBehaviour
         _net[netX, netY] = state;
     }
 
-    public void GetCellNetXY(int pointNetX, int pointNetY, Direction dir, out int targetNetX, out int targetNetY)
+    public void GetRelativeCellNetXY(int pointNetX, int pointNetY, Direction dir, out int targetNetX, out int targetNetY)
     {
         targetNetX = pointNetX;
         targetNetY = pointNetY;
@@ -130,6 +119,6 @@ public class NetMasterScript : MonoBehaviour
     void CheckNetXY(int netX, int netY)
     {
         netX.ExNotBelow(0, "netX").ExNotAbove(netWidth - 1, "netX");
-        netY.ExNotBelow(0, "netY").ExNotBelow(netHeight - 1, "netY");
+        netY.ExNotBelow(0, "netY").ExNotAbove(netHeight - 1, "netY");
     }
 }
