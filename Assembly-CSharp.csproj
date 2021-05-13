@@ -45,12 +45,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Classes\Direction.cs" />
+     <Compile Include="Assets\Classes\NetPlace.cs" />
+     <Compile Include="Assets\Scripts\NetMasterScript.cs" />
      <Compile Include="Assets\Scripts\X_Mover.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="Bycicles">
+ <HintPath>D:/Program_Projects/Unity_proj/OXGameProject/Assets/Libs/Bycicles.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
