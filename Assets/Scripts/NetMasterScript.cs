@@ -7,16 +7,33 @@ public class NetMasterScript : MonoBehaviour
     public int netWidth = 9;
     public int netHeight = 9;
 
-    public float pivotX = -6;
-    public float pivotY = -6;
+    public float centerX = 0;
+    public float centerY = 0;
 
     public float cellSize = 1.5f;
+
+    [HideInInspector]
+    public float zeroX;
+
+    [HideInInspector]
+    public float zeroY;
 
     int[,] _net;
 
     void Awake()
     {
         _net = new int[netWidth, netHeight];
+
+        zeroX = (centerX - (netWidth / 2)) * cellSize;
+        zeroY = (centerY - (netHeight / 2)) * cellSize;
+
+        if(netWidth % 2 == 0)
+            zeroX += 0.5f * cellSize;
+
+        if(netHeight % 2 == 0)
+            zeroY += 0.5f * cellSize;
+
+        Debug.Log(zeroX + " " + zeroY);
     }
 
     void Start()
@@ -32,8 +49,8 @@ public class NetMasterScript : MonoBehaviour
     /// <param name="fieldY"> Y of center of cell at netX, netY </param>
     public void NetXYToFieldXY(int netX, int netY, out float fieldX, out float fieldY)
     {
-        fieldX = pivotX + netX * cellSize;
-        fieldY = pivotY + netY * cellSize;
+        fieldX = zeroX + netX * cellSize;
+        fieldY = zeroY + netY * cellSize;
     }
 
     /// <summary>
