@@ -8,6 +8,7 @@ public class OBehavior : MonoBehaviour
     JustMover _mover;
     OXNetMember _netMember;
     SpriteSwaper _swaper;
+    Ghost _ghost;
 
     public Direction movingDirection = Direction.Up;
     public float speed = 1;
@@ -25,6 +26,7 @@ public class OBehavior : MonoBehaviour
         _mover = GetComponent<JustMover>();
         _netMember = GetComponent<OXNetMember>();
         _swaper = GetComponent<SpriteSwaper>();
+        _ghost = GetComponent<Ghost>();
 
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
@@ -34,6 +36,9 @@ public class OBehavior : MonoBehaviour
 
         if(_swaper == null)
             throw new Exception("Can't find SpriteSwaper component");
+
+        if(_ghost == null)
+            throw new Exception("Can't find Ghost component");
 
         _mover.OnMovingFinish += Arrive;
 
@@ -113,6 +118,8 @@ public class OBehavior : MonoBehaviour
         _netMember.SetDefaultCellState();
         _netMember.NetPosition = _targetPosition;
 
+        _ghost.Pull();
+
         DoOnUpdate = LookAround;
     }
 
@@ -131,13 +138,17 @@ public class OBehavior : MonoBehaviour
 
     void BecomeOrange()
     {
+        _netMember.SetCellState(CellState.OrangeO);
         _swaper.SwapSprite();
+        _ghost.Delete();
 
         DoOnUpdate = OrangeKemping;
     }
 
     void Merge()
     {
+        _ghost.Delete();
+
         Destroy(gameObject);
     }
 
@@ -148,6 +159,8 @@ public class OBehavior : MonoBehaviour
 
     void FinishRun()
     {
+        _ghost.Delete();
+
         Destroy(gameObject);
     }
 }
