@@ -16,6 +16,7 @@ public class OMover : MonoBehaviour
     public int _netX, _netY, _destinationNetX, _destinationNetY;
 
     Vector3 _destinationPoint;
+    Orangator _orangator;
     GameObject _ghost;
     Transform _ghostTransform;
 
@@ -23,6 +24,8 @@ public class OMover : MonoBehaviour
 
     void Start()
     {
+        _orangator = gameObject.GetComponent<Orangator>();
+
         settings.OnSpeedChange += RefreshSpeed;
 
         UpdateDeals = StandardMoving;
@@ -119,7 +122,7 @@ public class OMover : MonoBehaviour
 
     void BecomeOrange()
     {
-        // FixMe
+        _orangator.SwitchSprite();
         UpdateDeals = OrangeKemping;
         Destroy(_ghost);
     }
