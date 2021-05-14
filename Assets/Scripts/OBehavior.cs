@@ -109,7 +109,10 @@ public class OBehavior : MonoBehaviour
         }
         else if(targetCellState == CellState.WhiteO)
         {
-            Wait();
+            if(currentCellState == CellState.XRestricted)
+                Wait();
+            else
+                BecomeOrange();
         }
     }
 
