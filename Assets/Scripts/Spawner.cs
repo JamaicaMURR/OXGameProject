@@ -7,10 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject spawnPrefab;
     public Direction spawnDirection;
 
-    public int netX, netY;
-
     OXNetMember _netMember;
-    OXNetPosition _spawnerPosition;
 
     void Awake()
     {
@@ -18,13 +15,6 @@ public class Spawner : MonoBehaviour
 
         if(_netMember == null)
             throw new Exception("Can't find OXNetMember component");
-
-        _spawnerPosition = new OXNetPosition(netX, netY);
-    }
-
-    void Start()
-    {
-        _netMember.JumpAt(new OXNetPosition(netX, netY));
     }
 
     void Update()
@@ -37,7 +27,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject newbie = Instantiate(spawnPrefab);
 
-        newbie.GetComponent<OXNetMember>().NetPosition = _spawnerPosition;
+        newbie.GetComponent<OXNetMember>().NetPosition = _netMember.NetPosition;
         newbie.GetComponent<OBehavior>().movingDirection = spawnDirection;
     }
 }
