@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class NetArrangerScript : MonoBehaviour
 {
-    public NetMasterScript netMaster;
+    public OXNetMaster netMaster;
 
     public GameObject line;
 

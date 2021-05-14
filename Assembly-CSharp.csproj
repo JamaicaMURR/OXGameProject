@@ -45,13 +45,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Classes\Cell.cs" />
      <Compile Include="Assets\Classes\CellState.cs" />
      <Compile Include="Assets\Classes\Direction.cs" />
+     <Compile Include="Assets\Classes\OXNetPosition.cs" />
+     <Compile Include="Assets\Scripts\JustMover.cs" />
      <Compile Include="Assets\Scripts\NetArrangerScript.cs" />
-     <Compile Include="Assets\Scripts\NetMasterScript.cs" />
-     <Compile Include="Assets\Scripts\OMover.cs" />
+     <Compile Include="Assets\Scripts\OBehavior.cs" />
      <Compile Include="Assets\Scripts\OSettings.cs" />
-     <Compile Include="Assets\Scripts\X_Mover.cs" />
+     <Compile Include="Assets\Scripts\OXNetMaster.cs" />
+     <Compile Include="Assets\Scripts\OXNetMember.cs" />
+     <Compile Include="Assets\Scripts\Spawner.cs" />
+     <Compile Include="Assets\Scripts\SpriteSwaper.cs" />
+     <Compile Include="Assets\Scripts\XBehavior.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
