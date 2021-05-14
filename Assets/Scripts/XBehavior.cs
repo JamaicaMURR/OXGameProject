@@ -30,9 +30,6 @@ public class XBehavior : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.D))
             TryMove(Direction.Right);
-
-        if(Input.GetKeyDown(KeyCode.Space))
-            JumpToStartPosition();
     }
 
     //======================================================================================================================================

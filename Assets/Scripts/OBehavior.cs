@@ -43,8 +43,6 @@ public class OBehavior : MonoBehaviour
     void Start()
     {
         fixedZ = transform.position.z;
-
-        _netMember.JumpAt(new OXNetPosition(4, -5)); // Just for test!
     }
 
     // Update is called once per frame
