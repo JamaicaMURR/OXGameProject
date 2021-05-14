@@ -15,11 +15,11 @@ public class NetMasterScript : MonoBehaviour
     [HideInInspector]
     public float zeroX, zeroY;
 
-    int[,] _net;
+    CellState[,] _net;
 
     void Awake()
     {
-        _net = new int[netWidth, netHeight];
+        _net = new CellState[netWidth, netHeight];
 
         // calculates x & y of zero cell
         zeroX = (centerX - (netWidth / 2)) * cellSize;
@@ -51,18 +51,13 @@ public class NetMasterScript : MonoBehaviour
 
     /// <summary>
     /// Returns state of cell at given netX and netY coordinates
-    /// 0 - empty
-    /// 1 - x at cell
-    /// 2 - white o at cell
-    /// 3 - orange o at cell
-    /// 4 - out of bounds
     /// </summary>
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <returns></returns>
-    public int GetCellState(int netX, int netY)
+    public CellState GetCellState(int netX, int netY)
     {
-        int result = 4;
+        CellState result = CellState.OutOfBounds;
 
         if(netX >= 0 && netX < netWidth)
             if(netY >= 0 && netY < netHeight)
@@ -73,17 +68,12 @@ public class NetMasterScript : MonoBehaviour
 
     /// <summary>
     /// Returns state of cell at given direction relatively to cell with given netX and netY coordinates
-    /// 0 - empty
-    /// 1 - x at cell
-    /// 2 - white o at cell
-    /// 3 - orange o at cell
-    /// 4 - out of bounds
     /// </summary>
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <param name="dir"> Direction </param>
     /// <returns></returns>
-    public int GetCellState(int netX, int netY, Direction dir)
+    public CellState GetCellState(int netX, int netY, Direction dir)
     {
         int targetCellX, targetCellY;
 
@@ -98,13 +88,11 @@ public class NetMasterScript : MonoBehaviour
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <param name="state"></param>
-    public void SetCellState(int netX, int netY, int state)
+    public void SetCellState(int netX, int netY, CellState state)
     {
-        state.ExNotBelow(0, "State").ExNotAbove(4, "State");
-
-        CheckNetXY(netX, netY);
-
-        _net[netX, netY] = state;
+        if(netX >= 0 && netX < netWidth)
+            if(netY >= 0 && netY < netHeight)
+                _net[netX, netY] = state;
     }
 
     public void GetRelativeCellNetXY(int pointNetX, int pointNetY, Direction dir, out int targetNetX, out int targetNetY)
@@ -127,11 +115,5 @@ public class NetMasterScript : MonoBehaviour
                 targetNetX++;
                 break;
         }
-    }
-
-    void CheckNetXY(int netX, int netY)
-    {
-        netX.ExNotBelow(0, "netX").ExNotAbove(netWidth - 1, "netX");
-        netY.ExNotBelow(0, "netY").ExNotAbove(netHeight - 1, "netY");
     }
 }

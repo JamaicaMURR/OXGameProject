@@ -55,7 +55,7 @@ public class X_Mover : MonoBehaviour
     /// <param name="targetNetY"></param>
     void JumpAtCell(int targetNetX, int targetNetY)
     {
-        if(netMaster.GetCellState(targetNetX, targetNetY) == 0)
+        if(netMaster.GetCellState(targetNetX, targetNetY) == CellState.Empty)
         {
             // Shifts to new location
             float x, y;
@@ -63,8 +63,8 @@ public class X_Mover : MonoBehaviour
             transform.position = new Vector3(x, y, transform.position.z);
 
             // Registers at new cell in netMaster
-            netMaster.SetCellState(netX, netY, 0);
-            netMaster.SetCellState(targetNetX, targetNetY, 1);
+            netMaster.SetCellState(netX, netY, CellState.Empty);
+            netMaster.SetCellState(targetNetX, targetNetY, CellState.X);
             netX = targetNetX;
             netY = targetNetY;
         }

@@ -84,25 +84,26 @@ public class OMover : MonoBehaviour
     {
         PullGhost();
 
-        if(netMaster.GetCellState(_netX, _netY) == 3)
+        if(netMaster.GetCellState(_netX, _netY) == CellState.OrangeO)
             Merge();
 
-        int state = netMaster.GetCellState(_netX, _netY, movingDirection);
+        CellState state = netMaster.GetCellState(_netX, _netY, movingDirection);
 
         switch(state)
         {
-            case 0:
+            case CellState.Empty:
                 RefreshDestinationCoordinates();
+                netMaster.SetCellState(_destinationNetX, _destinationNetY, CellState.WhiteO);
                 break;
-            case 1:
+            case CellState.X:
                 BecomeOrange();
                 break;
-            case 2:
+            case CellState.WhiteO:
                 break;
-            case 3:
+            case CellState.OrangeO:
                 RefreshDestinationCoordinates();
                 break;
-            case 4:
+            case CellState.OutOfBounds:
                 FinishRun();
                 break;
         }
@@ -114,9 +115,6 @@ public class OMover : MonoBehaviour
         netMaster.ConvertNetXYToFieldXY(_destinationNetX, _destinationNetY, out _destinationFieldX, out _destinationFieldY);
 
         _destinationPoint = new Vector3(_destinationFieldX, _destinationFieldY, transform.position.z);
-
-        if(netMaster.GetCellState(_destinationNetX, _destinationNetY) == 0)
-            netMaster.SetCellState(_destinationNetX, _destinationNetY, 2);
     }
 
     void BecomeOrange()
