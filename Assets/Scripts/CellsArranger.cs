@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CellsArranger : MonoBehaviour
 {
+    static System.Random random = new System.Random();
+
     public OXNetMaster netMaster;
     public GameObject cellPrefab;
 
@@ -27,6 +29,8 @@ public class CellsArranger : MonoBehaviour
                         newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(1);
                     else
                         newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(2);
+
+                    newbie.GetComponent<Transform>().Rotate(0, 0, 90 * random.Next(0, 4));
                 }
             }
     }
