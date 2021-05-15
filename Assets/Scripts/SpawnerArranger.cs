@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class SpawnerArranger : MonoBehaviour
 {
+    static System.Random random = new System.Random();
+
     public OXNetMaster netMaster;
     public SpawnersLord spLord;
     public GameObject spawnerPrefab;
@@ -27,6 +29,7 @@ public class SpawnerArranger : MonoBehaviour
     {
         GameObject newbie = Instantiate(spawnerPrefab);
 
+        newbie.GetComponent<Transform>().Rotate(0, 0, 90 * random.Next(0, 4));
         newbie.GetComponent<OXNetMember>().NetPosition = position;
         newbie.GetComponent<Spawner>().spawnDirection = direction;
 
