@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Bycicles.Ranges;
 
 public class SuitChanger : MonoBehaviour
 {
@@ -9,8 +10,14 @@ public class SuitChanger : MonoBehaviour
 
     public Sprite[] suits;
 
-    public bool changeAtStart = true;
+    public bool randomChangeAtStart = true;
     public bool randomFlipWhenChange = true;
+
+    [HideInInspector]
+    public int lastSuitNumber = -1;
+
+    [HideInInspector]
+    public bool lastFlipedX, lastFlipedY; // Indicates of fliiping of last suit
 
     void Awake()
     {
@@ -25,19 +32,27 @@ public class SuitChanger : MonoBehaviour
 
     void Start()
     {
-        if(changeAtStart)
+        if(randomChangeAtStart)
             ChangeSuit();
     }
 
-    public void ChangeSuit(int number)
+    public void ChangeSuit(int suitNumber)
     {
-        _spriteRenderer.sprite = suits[number];
+        suitNumber.ExNotBelow(0, "suitNumber").ExNotAbove(suits.Length - 1, "suitNumber");
+
+        _spriteRenderer.sprite = suits[suitNumber];
 
         if(randomFlipWhenChange)
         {
-            _spriteRenderer.flipX = random.NextDouble() < 0.5;
-            _spriteRenderer.flipY = random.NextDouble() < 0.5;
+            // Indicators changes at random first & then real flipping of suit according to indicators
+            lastFlipedX = random.NextDouble() < 0.5;
+            lastFlipedY = random.NextDouble() < 0.5;
+
+            _spriteRenderer.flipX = lastFlipedX;
+            _spriteRenderer.flipY = lastFlipedY;
         }
+
+        lastSuitNumber = suitNumber;
     }
 
     public void ChangeSuit()
