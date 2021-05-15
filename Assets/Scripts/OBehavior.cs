@@ -9,6 +9,7 @@ public class OBehavior : MonoBehaviour
     OXNetMember _netMember;
     SuitOrangator _orangator;
     Ghost _ghost;
+    MergeMaster _mergeMaster;
 
     public Direction movingDirection = Direction.Up;
     public float speed = 1;
@@ -28,6 +29,8 @@ public class OBehavior : MonoBehaviour
         _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
 
+        _mergeMaster = GameObject.Find("NetMaster").GetComponent<MergeMaster>();
+
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
 
@@ -39,6 +42,9 @@ public class OBehavior : MonoBehaviour
 
         if(_ghost == null)
             throw new Exception("Can't find Ghost component");
+
+        if(_mergeMaster == null)
+            throw new Exception("Can't find MergeMaster");
 
         _mover.OnMovingFinish += Arrive;
 
@@ -144,6 +150,7 @@ public class OBehavior : MonoBehaviour
         _netMember.SetCellState(CellState.OrangeO);
         _orangator.OrangateSuit();
         _ghost.Delete();
+        _mergeMaster.RegisterOrange(gameObject);
 
         transform.Translate(new Vector3(0, 0, 0.5f)); // positionate object more far then others
 
@@ -152,6 +159,8 @@ public class OBehavior : MonoBehaviour
 
     void Merge()
     {
+        _netMember.SetCellState(CellState.Empty);
+        _mergeMaster.MergeAt(_netMember.NetPosition);
         _ghost.Delete();
 
         Destroy(gameObject);

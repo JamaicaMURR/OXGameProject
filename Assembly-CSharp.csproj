@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\CellsArranger.cs" />
      <Compile Include="Assets\Scripts\Ghost.cs" />
      <Compile Include="Assets\Scripts\JustMover.cs" />
+     <Compile Include="Assets\Scripts\MergeMaster.cs" />
      <Compile Include="Assets\Scripts\OBehavior.cs" />
      <Compile Include="Assets\Scripts\OXNetMaster.cs" />
      <Compile Include="Assets\Scripts\OXNetMember.cs" />
