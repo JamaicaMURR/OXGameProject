@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SpawnerArranger : MonoBehaviour
 {
     public OXNetMaster netMaster;
+    public SpawnersLord spLord;
     public GameObject spawnerPrefab;
 
     void Start()
@@ -28,5 +29,7 @@ public class SpawnerArranger : MonoBehaviour
 
         newbie.GetComponent<OXNetMember>().NetPosition = position;
         newbie.GetComponent<Spawner>().spawnDirection = direction;
+
+        spLord.Register(newbie);
     }
 }

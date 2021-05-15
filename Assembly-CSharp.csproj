@@ -5,8 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{8C88168C-AFA8-630F-9695-3619C5972F78}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -46,28 +45,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Classes\Cell.cs" />
-    <Compile Include="Assets\Classes\CellState.cs" />
-    <Compile Include="Assets\Classes\Direction.cs" />
-    <Compile Include="Assets\Classes\OXNetPosition.cs" />
-    <Compile Include="Assets\Scripts\Ghost.cs" />
-    <Compile Include="Assets\Scripts\JustMover.cs" />
-    <Compile Include="Assets\Scripts\SpawnerArranger.cs" />
-    <Compile Include="Assets\Scripts\OBehavior.cs" />
-    <Compile Include="Assets\Scripts\OXNetMaster.cs" />
-    <Compile Include="Assets\Scripts\OXNetMember.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
-    <Compile Include="Assets\Scripts\SpriteSwaper.cs" />
-    <Compile Include="Assets\Scripts\XBehavior.cs" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="Bycicles">
-      <HintPath>D:/Program_Projects/Unity_proj/OXGameProject/Assets/Libs/Bycicles.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Classes\Cell.cs" />
+     <Compile Include="Assets\Classes\CellState.cs" />
+     <Compile Include="Assets\Classes\Direction.cs" />
+     <Compile Include="Assets\Classes\OXNetPosition.cs" />
+     <Compile Include="Assets\Scripts\Ghost.cs" />
+     <Compile Include="Assets\Scripts\JustMover.cs" />
+     <Compile Include="Assets\Scripts\OBehavior.cs" />
+     <Compile Include="Assets\Scripts\OXNetMaster.cs" />
+     <Compile Include="Assets\Scripts\OXNetMember.cs" />
+     <Compile Include="Assets\Scripts\Spawner.cs" />
+     <Compile Include="Assets\Scripts\SpawnerArranger.cs" />
+     <Compile Include="Assets\Scripts\SpawnersLord.cs" />
+     <Compile Include="Assets\Scripts\SpriteSwaper.cs" />
+     <Compile Include="Assets\Scripts\XBehavior.cs" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="Bycicles">
+ <HintPath>D:/Program_Projects/Unity_proj/OXGameProject/Assets/Libs/Bycicles.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -77,4 +77,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
