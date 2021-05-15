@@ -114,6 +114,22 @@ public class OXNetMaster : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns defaultState of cell at given position;
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public CellState GetDefCellState(OXNetPosition position)
+    {
+        CellState result = CellState.OutOfBounds;
+
+        if(position.X >= 0 && position.X < netWidth)
+            if(position.Y >= 0 && position.Y < netHeight)
+                result = _net[position.X, position.Y].DefaultState;
+
+        return result;
+    }
+
+    /// <summary>
     /// Sets state to cell at given netX & netY
     /// </summary>
     /// <param name="netX"></param>

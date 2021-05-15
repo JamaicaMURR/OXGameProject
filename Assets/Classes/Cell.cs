@@ -12,6 +12,11 @@ public class Cell
         set { _actualState = value; }
     }
 
+    public CellState DefaultState
+    {
+        get { return _defaultState; }
+    }
+
     //======================================================================================================================================
     public Cell(CellState defaultState)
     {
