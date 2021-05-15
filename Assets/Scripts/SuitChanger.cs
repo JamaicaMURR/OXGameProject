@@ -17,7 +17,7 @@ public class SuitChanger : MonoBehaviour
     public int lastSuitNumber = -1;
 
     [HideInInspector]
-    public bool lastFlipedX, lastFlipedY; // Indicates of fliiping of last suit
+    public bool xWasFliped, yWasFliped; // Indicates of fliiping of last suit
 
     void Awake()
     {
@@ -45,11 +45,11 @@ public class SuitChanger : MonoBehaviour
         if(randomFlipWhenChange)
         {
             // Indicators changes at random first & then real flipping of suit according to indicators
-            lastFlipedX = random.NextDouble() < 0.5;
-            lastFlipedY = random.NextDouble() < 0.5;
+            xWasFliped = random.NextDouble() < 0.5;
+            yWasFliped = random.NextDouble() < 0.5;
 
-            _spriteRenderer.flipX = lastFlipedX;
-            _spriteRenderer.flipY = lastFlipedY;
+            _spriteRenderer.flipX = xWasFliped;
+            _spriteRenderer.flipY = yWasFliped;
         }
 
         lastSuitNumber = suitNumber;

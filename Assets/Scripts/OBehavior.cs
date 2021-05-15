@@ -7,7 +7,7 @@ public class OBehavior : MonoBehaviour
 {
     JustMover _mover;
     OXNetMember _netMember;
-    SpriteSwaper _swaper;
+    SuitOrangator _orangator;
     Ghost _ghost;
 
     public Direction movingDirection = Direction.Up;
@@ -25,7 +25,7 @@ public class OBehavior : MonoBehaviour
     {
         _mover = GetComponent<JustMover>();
         _netMember = GetComponent<OXNetMember>();
-        _swaper = GetComponent<SpriteSwaper>();
+        _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
 
         if(_mover == null)
@@ -34,8 +34,8 @@ public class OBehavior : MonoBehaviour
         if(_netMember == null)
             throw new Exception("Cen't find OXNetMember component");
 
-        if(_swaper == null)
-            throw new Exception("Can't find SpriteSwaper component");
+        if(_orangator == null)
+            throw new Exception("Can't find SuitOrangator component");
 
         if(_ghost == null)
             throw new Exception("Can't find Ghost component");
@@ -142,7 +142,7 @@ public class OBehavior : MonoBehaviour
     void BecomeOrange()
     {
         _netMember.SetCellState(CellState.OrangeO);
-        _swaper.SwapSprite();
+        _orangator.OrangateSuit();
         _ghost.Delete();
 
         DoOnUpdate = OrangeKemping;
