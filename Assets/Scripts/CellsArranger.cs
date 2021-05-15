@@ -14,17 +14,20 @@ public class CellsArranger : MonoBehaviour
 
     public void Arrange()
     {
-        for(int x=0; x<netMaster.netWidth; x++)
-            for(int y=0; y<netMaster.netHeight; y++)
+        for(int x = 0; x < netMaster.netWidth; x++)
+            for(int y = 0; y < netMaster.netHeight; y++)
             {
-                GameObject newbie = Instantiate(cellPrefab);
+                if(!((x == 0 || x == netMaster.netWidth - 1) && (y == 0 || y == netMaster.netHeight - 1)))
+                {
+                    GameObject newbie = Instantiate(cellPrefab);
 
-                newbie.GetComponent<OXNetMember>().NetPosition = new OXNetPosition(x, y);
+                    newbie.GetComponent<OXNetMember>().NetPosition = new OXNetPosition(x, y);
 
-                if(netMaster.GetDefCellState(new OXNetPosition(x, y)) == CellState.Empty)
-                    newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(1);
-                else
-                    newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(2);
+                    if(netMaster.GetDefCellState(new OXNetPosition(x, y)) == CellState.Empty)
+                        newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(1);
+                    else
+                        newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(2);
+                }
             }
     }
 }
