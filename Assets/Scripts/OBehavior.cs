@@ -145,6 +145,8 @@ public class OBehavior : MonoBehaviour
         _orangator.OrangateSuit();
         _ghost.Delete();
 
+        transform.Translate(new Vector3(0, 0, 0.5f)); // positionate object more far then others
+
         DoOnUpdate = OrangeKemping;
     }
 
