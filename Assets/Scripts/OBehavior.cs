@@ -159,7 +159,6 @@ public class OBehavior : MonoBehaviour
 
     void Merge()
     {
-        _netMember.SetCellState(CellState.Empty);
         _mergeMaster.MergeAt(_netMember.NetPosition);
         _ghost.Delete();
 

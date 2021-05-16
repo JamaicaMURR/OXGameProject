@@ -31,6 +31,8 @@ public class MergeMaster : MonoBehaviour
     {
         int mergingIndex = FindIndex(position);
 
+        netMaster.SetDefaultState(position);
+
         Destroy(_oranges[mergingIndex]);
 
         Debug.Log("Merging"); // place for more code!<=============================================================!!!!
