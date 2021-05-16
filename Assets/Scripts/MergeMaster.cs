@@ -35,10 +35,22 @@ public class MergeMaster : MonoBehaviour
 
         Destroy(_oranges[mergingIndex]);
 
-        Debug.Log("Merging"); // place for more code!<=============================================================!!!!
-
         _oranges.RemoveAt(mergingIndex);
         _positions.RemoveAt(mergingIndex);
+
+        FindAndMerge(position, Direction.Up);
+        FindAndMerge(position, Direction.Down);
+        FindAndMerge(position, Direction.Left);
+        FindAndMerge(position, Direction.Right);
+    }
+
+    void FindAndMerge(OXNetPosition position, Direction direction)
+    {
+        OXNetPosition relativePosition = netMaster.GetRelativePosition(position, direction);
+
+        if(netMaster.GetCellState(relativePosition) == CellState.OrangeO)
+            MergeAt(relativePosition);
+
     }
 
     int FindIndex(OXNetPosition position)
