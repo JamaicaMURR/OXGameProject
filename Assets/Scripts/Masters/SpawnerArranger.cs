@@ -7,7 +7,7 @@ public class SpawnerArranger : MonoBehaviour
     static System.Random random = new System.Random();
 
     public NetMaster netMaster;
-    public SpawnersLord spLord;
+    public SpawnMaster spLord;
     public GameObject spawnerPrefab;
 
     void Start()

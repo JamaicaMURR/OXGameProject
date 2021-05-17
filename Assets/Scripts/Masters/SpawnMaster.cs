@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class SpawnersLord : MonoBehaviour
+public class SpawnMaster : MonoBehaviour
 {
     static System.Random random = new System.Random();
 

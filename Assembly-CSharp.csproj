@@ -55,12 +55,13 @@
      <Compile Include="Assets\Scripts\JustMover.cs" />
      <Compile Include="Assets\Scripts\Masters\ButtonsHandler.cs" />
      <Compile Include="Assets\Scripts\Masters\CellsArranger.cs" />
+     <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
      <Compile Include="Assets\Scripts\Masters\FieldInputHandler.cs" />
      <Compile Include="Assets\Scripts\Masters\HeartsMaster.cs" />
      <Compile Include="Assets\Scripts\Masters\MergeMaster.cs" />
      <Compile Include="Assets\Scripts\Masters\NetMaster.cs" />
+     <Compile Include="Assets\Scripts\Masters\SpawnMaster.cs" />
      <Compile Include="Assets\Scripts\Masters\SpawnerArranger.cs" />
-     <Compile Include="Assets\Scripts\Masters\SpawnersLord.cs" />
      <Compile Include="Assets\Scripts\NetMember.cs" />
      <Compile Include="Assets\Scripts\OBehavior.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />

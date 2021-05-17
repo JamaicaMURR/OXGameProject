@@ -5,12 +5,13 @@ using Bycicles.Ranges;
 
 public class OBehavior : MonoBehaviour
 {
+    CentralPort _central;
+
     JustMover _mover;
     NetMember _netMember;
     SuitOrangator _orangator;
     Ghost _ghost;
     ControlledGhost _forvardGhost;
-    MergeMaster _mergeMaster;
 
     public Direction movingDirection = Direction.Up;
     public float speed = 1;
@@ -31,7 +32,7 @@ public class OBehavior : MonoBehaviour
         if(fieldMaster == null)
             throw new Exception("Can't find FieldMaster object");
 
-        _mergeMaster = fieldMaster.GetComponent<MergeMaster>();
+        _central = fieldMaster.GetComponent<CentralPort>();
 
         //
         _mover = GetComponent<JustMover>();
@@ -54,9 +55,6 @@ public class OBehavior : MonoBehaviour
 
         if(_forvardGhost == null)
             throw new Exception("Can't find ControlledGhost component");
-
-        if(_mergeMaster == null)
-            throw new Exception("Can't find MergeMaster");
 
         //
         _mover.OnMovingFinish += Arrive;
@@ -173,7 +171,7 @@ public class OBehavior : MonoBehaviour
     {
         _netMember.SetCellState(CellState.OrangeO);
         _orangator.OrangateSuit();
-        _mergeMaster.RegisterOrange(gameObject);
+        _central.mergeMaster.RegisterOrange(gameObject);
 
         DeleteGhosts();
 
@@ -184,7 +182,7 @@ public class OBehavior : MonoBehaviour
 
     void Merge()
     {
-        _mergeMaster.MergeAt(_netMember.NetPosition);
+        _central.mergeMaster.MergeAt(_netMember.NetPosition);
 
         DeleteGhosts();
         Destroy(gameObject);
