@@ -99,12 +99,20 @@ public class OBehavior : MonoBehaviour
         else if(targetCS == CellState.XRestricted)
         {
             SetNextDestination();
+            ClaimdDestination(CellState.XRestrictedWithO);
 
             DoOnUpdate = Moving;
         }
+        else if(targetCS == CellState.XRestrictedWithO)
+        {
+            if(currentCS == CellState.WhiteO)
+                BecomeOrange();
+            else
+                Wait();
+        }
         else if(targetCS == CellState.X)
         {
-            if(currentCS == CellState.XRestricted)
+            if(currentCS == CellState.XRestrictedWithO)
                 Wait();
             else
                 BecomeOrange();
@@ -126,7 +134,7 @@ public class OBehavior : MonoBehaviour
         }
         else if(targetCS == CellState.WhiteO)
         {
-            if(currentCS == CellState.XRestricted)
+            if(currentCS == CellState.XRestrictedWithO)
                 Wait();
             else
                 BecomeOrange();
@@ -195,6 +203,9 @@ public class OBehavior : MonoBehaviour
 
     void FinishRun()
     {
+        _central.heartsMaster.Hearts--;
+        _netMember.SetDefaultCellState();
+
         DeleteGhosts();
         Destroy(gameObject);
     }

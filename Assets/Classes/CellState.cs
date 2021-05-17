@@ -2,6 +2,7 @@
 {
     Empty,
     XRestricted,
+    XRestrictedWithO,
     X,
     WhiteO,
     OrangeO,

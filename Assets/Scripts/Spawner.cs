@@ -19,6 +19,8 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
+
+
         GameObject newbie = Instantiate(spawnPrefab);
 
         newbie.GetComponent<NetMember>().NetPosition = _netMember.NetPosition;
