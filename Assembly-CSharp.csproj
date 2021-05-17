@@ -49,6 +49,7 @@
      <Compile Include="Assets\Classes\CellState.cs" />
      <Compile Include="Assets\Classes\Direction.cs" />
      <Compile Include="Assets\Classes\OXNetPosition.cs" />
+     <Compile Include="Assets\Scripts\ButtonsHandler.cs" />
      <Compile Include="Assets\Scripts\CellTile.cs" />
      <Compile Include="Assets\Scripts\CellsArranger.cs" />
      <Compile Include="Assets\Scripts\Ghost.cs" />
