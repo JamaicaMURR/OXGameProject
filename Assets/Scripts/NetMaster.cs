@@ -3,7 +3,7 @@ using Bycicles.Ranges;
 using System.Collections;
 using System.Collections.Generic;
 
-public class OXNetMaster : MonoBehaviour
+public class NetMaster : MonoBehaviour
 {
     Cell[,] _net;
 

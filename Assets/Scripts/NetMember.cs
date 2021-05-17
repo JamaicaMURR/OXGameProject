@@ -5,12 +5,12 @@ using System;
 /// <summary>
 /// Provides to object ability to be a member of OXnet
 /// </summary>
-public class OXNetMember : MonoBehaviour
+public class NetMember : MonoBehaviour
 {
     OXNetPosition _netPosition;
 
     [SerializeField]
-    OXNetMaster netMaster;
+    NetMaster netMaster;
 
     public OXNetPosition NetPosition
     {
@@ -31,7 +31,7 @@ public class OXNetMember : MonoBehaviour
             if(fieldMaster == null)
                 throw new Exception("Can't find FieldMaster object");
 
-            netMaster = fieldMaster.GetComponent<OXNetMaster>();
+            netMaster = fieldMaster.GetComponent<NetMaster>();
 
             if(netMaster == null)
                 throw new Exception("Can't find NetMaster component in FieldMaster");

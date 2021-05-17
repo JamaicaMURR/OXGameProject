@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MergeMaster : MonoBehaviour
 {
-    public OXNetMaster netMaster;
+    public NetMaster netMaster;
 
     List<GameObject> _oranges;
     List<OXNetPosition> _positions;
@@ -19,7 +19,7 @@ public class MergeMaster : MonoBehaviour
     {
         _oranges.Add(obj);
 
-        OXNetMember member = obj.GetComponent<OXNetMember>();
+        NetMember member = obj.GetComponent<NetMember>();
 
         if(member != null)
             _positions.Add(member.NetPosition);

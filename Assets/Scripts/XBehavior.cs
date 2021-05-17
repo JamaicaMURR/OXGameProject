@@ -4,12 +4,12 @@ using System;
 
 public class XBehavior : MonoBehaviour
 {
-    OXNetMember _netMember;
+    NetMember _netMember;
 
     //======================================================================================================================================
     void Start()
     {
-        _netMember = GetComponent<OXNetMember>();
+        _netMember = GetComponent<NetMember>();
 
         if(_netMember == null)
             throw new Exception("Can't find NetMember component");

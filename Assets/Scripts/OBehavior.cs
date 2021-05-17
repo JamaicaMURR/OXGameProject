@@ -6,7 +6,7 @@ using Bycicles.Ranges;
 public class OBehavior : MonoBehaviour
 {
     JustMover _mover;
-    OXNetMember _netMember;
+    NetMember _netMember;
     SuitOrangator _orangator;
     Ghost _ghost;
     MergeMaster _mergeMaster;
@@ -34,7 +34,7 @@ public class OBehavior : MonoBehaviour
 
         //
         _mover = GetComponent<JustMover>();
-        _netMember = GetComponent<OXNetMember>();
+        _netMember = GetComponent<NetMember>();
         _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
 

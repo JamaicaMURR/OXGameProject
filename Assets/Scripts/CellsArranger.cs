@@ -5,7 +5,7 @@ public class CellsArranger : MonoBehaviour
 {
     static System.Random random = new System.Random();
 
-    public OXNetMaster netMaster;
+    public NetMaster netMaster;
     public GameObject cellPrefab;
 
     // Use this for initialization
@@ -23,7 +23,7 @@ public class CellsArranger : MonoBehaviour
                 {
                     GameObject newbie = Instantiate(cellPrefab);
 
-                    newbie.GetComponent<OXNetMember>().NetPosition = new OXNetPosition(x, y);
+                    newbie.GetComponent<NetMember>().NetPosition = new OXNetPosition(x, y);
 
                     if(netMaster.GetDefCellState(new OXNetPosition(x, y)) == CellState.Empty)
                         newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(1);
