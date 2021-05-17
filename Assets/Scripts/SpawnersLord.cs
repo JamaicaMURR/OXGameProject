@@ -12,10 +12,14 @@ public class SpawnersLord : MonoBehaviour
     float _timer = 0;
 
     List<Spawner> _spawners;
+    List<Spawner> _availableSpawners;
 
     void Awake()
     {
         _spawners = new List<Spawner>();
+        _availableSpawners = new List<Spawner>(_spawners);
+
+        _timer = spawnPeriod;
     }
 
     void Update()
@@ -36,6 +40,12 @@ public class SpawnersLord : MonoBehaviour
 
     public void Spawn()
     {
-        _spawners[random.Next(0, _spawners.Count)].Spawn();
+        if(_availableSpawners.Count == 0)
+            _availableSpawners = new List<Spawner>(_spawners);
+
+        int chosenIndex = random.Next(0, _availableSpawners.Count);
+
+        _availableSpawners[chosenIndex].Spawn();
+        _availableSpawners.RemoveAt(chosenIndex);
     }
 }
