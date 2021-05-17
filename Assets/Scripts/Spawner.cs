@@ -17,12 +17,6 @@ public class Spawner : MonoBehaviour
             throw new Exception("Can't find OXNetMember component");
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)) // Just for test!
-            Spawn();
-    }
-
     public void Spawn()
     {
         GameObject newbie = Instantiate(spawnPrefab);

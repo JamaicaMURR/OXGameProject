@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Bycicles.Ranges;
 
 public class XBehavior : MonoBehaviour
 {
@@ -17,27 +18,12 @@ public class XBehavior : MonoBehaviour
         JumpToStartPosition();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.W))
-            TryMove(Direction.Up);
-
-        if(Input.GetKeyDown(KeyCode.S))
-            TryMove(Direction.Down);
-
-        if(Input.GetKeyDown(KeyCode.A))
-            TryMove(Direction.Left);
-
-        if(Input.GetKeyDown(KeyCode.D))
-            TryMove(Direction.Right);
-    }
-
     //======================================================================================================================================
     /// <summary>
     /// Tries to move X at given direction
     /// </summary>
     /// <param name="direction"></param>
-    void TryMove(Direction direction)
+    public void TryToMove(Direction direction)
     {
         CellState state = _netMember.GetCellState(direction);
 

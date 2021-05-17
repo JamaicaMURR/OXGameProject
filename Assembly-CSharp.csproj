@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\ButtonsHandler.cs" />
      <Compile Include="Assets\Scripts\CellTile.cs" />
      <Compile Include="Assets\Scripts\CellsArranger.cs" />
+     <Compile Include="Assets\Scripts\FieldInputHandler.cs" />
      <Compile Include="Assets\Scripts\Ghost.cs" />
      <Compile Include="Assets\Scripts\JustMover.cs" />
      <Compile Include="Assets\Scripts\MergeMaster.cs" />
