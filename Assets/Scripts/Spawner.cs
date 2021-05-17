@@ -19,11 +19,12 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
+        if(_netMember.GetCellState(spawnDirection) == CellState.Dark)
+        {
+            GameObject newbie = Instantiate(spawnPrefab);
 
-
-        GameObject newbie = Instantiate(spawnPrefab);
-
-        newbie.GetComponent<NetMember>().NetPosition = _netMember.NetPosition;
-        newbie.GetComponent<OBehavior>().movingDirection = spawnDirection;
+            newbie.GetComponent<NetMember>().NetPosition = _netMember.NetPosition;
+            newbie.GetComponent<OBehavior>().movingDirection = spawnDirection;
+        }
     }
 }
