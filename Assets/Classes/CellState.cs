@@ -5,5 +5,6 @@
     X,
     WhiteO,
     OrangeO,
+    Merging,
     OutOfBounds
 }

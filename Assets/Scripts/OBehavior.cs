@@ -64,55 +64,51 @@ public class OBehavior : MonoBehaviour
         fixedZ = transform.position.z;
     }
 
-    // Update is called once per frame
     void Update()
     {
         DoOnUpdate();
     }
 
     //======================================================================================================================================
-    void Moving()
-    {
-        _mover.Move(_targetFieldPosition, speed * Time.deltaTime);
-    }
-
-    void OrangeKemping()
-    {
-
-    }
-
     void LookAround()
     {
-        CellState currentCellState = _netMember.GetCellState();
-        CellState targetCellState = _netMember.GetCellState(movingDirection);
+        CellState currentCS = _netMember.GetCellState();
+        CellState targetCS = _netMember.GetCellState(movingDirection);
 
-        if(currentCellState == CellState.OrangeO)
+        if(currentCS == CellState.Merging)
         {
             Merge();
         }
-        else if(targetCellState == CellState.Empty)
+        else if(targetCS == CellState.Empty)
         {
             SetNextDestination();
-            ClaimdDestination();
+            ClaimdDestination(CellState.WhiteO);
 
             DoOnUpdate = Moving;
         }
-        else if(targetCellState == CellState.OrangeO || targetCellState == CellState.XRestricted)
+        else if(targetCS == CellState.OrangeO)
+        {
+            SetNextDestination();
+            ClaimdDestination(CellState.Merging);
+
+            DoOnUpdate = Moving;
+        }
+        else if(targetCS == CellState.XRestricted)
         {
             SetNextDestination();
 
             DoOnUpdate = Moving;
         }
-        else if(targetCellState == CellState.X)
+        else if(targetCS == CellState.X)
         {
-            if(currentCellState == CellState.XRestricted)
+            if(currentCS == CellState.XRestricted)
                 Wait();
             else
                 BecomeOrange();
         }
-        else if(targetCellState == CellState.OutOfBounds)
+        else if(targetCS == CellState.OutOfBounds)
         {
-            if(currentCellState == CellState.OutOfBounds)
+            if(currentCS == CellState.OutOfBounds)
             {
                 SetNextDestination();
 
@@ -121,13 +117,27 @@ public class OBehavior : MonoBehaviour
             else
                 FinishRun();
         }
-        else if(targetCellState == CellState.WhiteO)
+        else if(targetCS == CellState.Merging)
         {
-            if(currentCellState == CellState.XRestricted)
+            Wait();
+        }
+        else if(targetCS == CellState.WhiteO)
+        {
+            if(currentCS == CellState.XRestricted)
                 Wait();
             else
                 BecomeOrange();
         }
+    }
+
+    void Moving()
+    {
+        _mover.Move(_targetFieldPosition, speed * Time.deltaTime);
+    }
+
+    void OrangeKemping()
+    {
+        // Maybe nothing at all
     }
 
     void Arrive()
@@ -148,9 +158,9 @@ public class OBehavior : MonoBehaviour
         _targetFieldPosition = new Vector3(fieldPoint.x, fieldPoint.y, fixedZ);
     }
 
-    void ClaimdDestination()
+    void ClaimdDestination(CellState claim)
     {
-        _netMember.SetCellState(CellState.WhiteO, movingDirection);
+        _netMember.SetCellState(claim, movingDirection);
     }
 
     void BecomeOrange()
@@ -175,7 +185,7 @@ public class OBehavior : MonoBehaviour
 
     void Wait()
     {
-
+        // Maybe nothing at all
     }
 
     void FinishRun()
