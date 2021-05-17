@@ -25,10 +25,18 @@ public class OXNetMember : MonoBehaviour
     void Awake()
     {
         if(netMaster == null)
-            netMaster = GameObject.Find("NetMaster").GetComponent<OXNetMaster>();
+        {
+            GameObject fieldMaster = GameObject.Find("FieldMaster");
 
-        if(netMaster == null)
-            throw new Exception("Can't find NetMaster object");
+            if(fieldMaster == null)
+                throw new Exception("Can't find FieldMaster object");
+
+            netMaster = fieldMaster.GetComponent<OXNetMaster>();
+
+            if(netMaster == null)
+                throw new Exception("Can't find NetMaster component in FieldMaster");
+        }
+
     }
 
     //======================================================================================================================================

@@ -24,12 +24,19 @@ public class OBehavior : MonoBehaviour
     //======================================================================================================================================
     void Awake()
     {
+        //
+        GameObject fieldMaster = GameObject.Find("FieldMaster");
+
+        if(fieldMaster == null)
+            throw new Exception("Can't find FieldMaster object");
+
+        _mergeMaster = fieldMaster.GetComponent<MergeMaster>();
+
+        //
         _mover = GetComponent<JustMover>();
         _netMember = GetComponent<OXNetMember>();
         _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
-
-        _mergeMaster = GameObject.Find("NetMaster").GetComponent<MergeMaster>();
 
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
@@ -46,6 +53,7 @@ public class OBehavior : MonoBehaviour
         if(_mergeMaster == null)
             throw new Exception("Can't find MergeMaster");
 
+        //
         _mover.OnMovingFinish += Arrive;
 
         DoOnUpdate = LookAround;
