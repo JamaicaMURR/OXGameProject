@@ -27,7 +27,7 @@ public class XBehavior : MonoBehaviour
     {
         CellState state = _netMember.GetCellState(direction);
 
-        if(state == CellState.Empty)
+        if(state == CellState.Empty || state == CellState.Dark)
         {
             _netMember.SetDefaultCellState();
             _netMember.JumpAt(direction);

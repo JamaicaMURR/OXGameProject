@@ -96,14 +96,19 @@ public class OBehavior : MonoBehaviour
 
             DoOnUpdate = Moving;
         }
-        else if(targetCS == CellState.XRestricted)
+        else if(targetCS == CellState.Dark)
         {
-            SetNextDestination();
-            ClaimdDestination(CellState.XRestrictedWithO);
+            if(currentCS == CellState.WhiteO)
+                FinishRun();
+            else
+            {
+                SetNextDestination();
+                ClaimdDestination(CellState.DarkWithO);
 
-            DoOnUpdate = Moving;
+                DoOnUpdate = Moving;
+            }
         }
-        else if(targetCS == CellState.XRestrictedWithO)
+        else if(targetCS == CellState.DarkWithO)
         {
             if(currentCS == CellState.WhiteO)
                 BecomeOrange();
@@ -112,7 +117,7 @@ public class OBehavior : MonoBehaviour
         }
         else if(targetCS == CellState.X)
         {
-            if(currentCS == CellState.XRestrictedWithO)
+            if(currentCS == CellState.DarkWithO || currentCS == CellState.OutOfBounds)
                 Wait();
             else
                 BecomeOrange();
@@ -126,7 +131,7 @@ public class OBehavior : MonoBehaviour
                 DoOnUpdate = Moving;
             }
             else
-                FinishRun();
+                throw new Exception("O going out if bounds");
         }
         else if(targetCS == CellState.Merging)
         {
@@ -134,7 +139,7 @@ public class OBehavior : MonoBehaviour
         }
         else if(targetCS == CellState.WhiteO)
         {
-            if(currentCS == CellState.XRestrictedWithO)
+            if(currentCS == CellState.DarkWithO)
                 Wait();
             else
                 BecomeOrange();

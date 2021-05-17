@@ -1,8 +1,8 @@
 ﻿public enum CellState
 {
     Empty,
-    XRestricted,
-    XRestrictedWithO,
+    Dark,
+    DarkWithO,
     X,
     WhiteO,
     OrangeO,

@@ -21,11 +21,13 @@ public class NetMaster : MonoBehaviour
     {
         _net = new Cell[netWidth, netHeight];
 
-        for(int x=0; x<netWidth; x++)
-            for(int y=0; y<netHeight; y++)
+        for(int x = 0; x < netWidth; x++)
+            for(int y = 0; y < netHeight; y++)
             {
-                if(x == 0 || y == 0 || x == netWidth - 1 || y == netHeight - 1)
-                    _net[x, y] = new Cell(CellState.XRestricted);
+                if(x == 0 ^ y == 0 ^ x == netWidth - 1 ^ y == netHeight - 1)
+                    _net[x, y] = new Cell(CellState.Dark);
+                else if(x == 0 || y == 0 || x == netWidth - 1 || y == netHeight - 1)
+                    _net[x, y] = new Cell(CellState.OutOfBounds);
                 else
                     _net[x, y] = new Cell();
             }
