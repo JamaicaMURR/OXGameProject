@@ -9,12 +9,13 @@ public class OBehavior : MonoBehaviour
     NetMember _netMember;
     SuitOrangator _orangator;
     Ghost _ghost;
+    ControlledGhost _forvardGhost;
     MergeMaster _mergeMaster;
 
     public Direction movingDirection = Direction.Up;
     public float speed = 1;
 
-    OXNetPosition _targetPosition;
+    NetPosition _targetPosition;
     Vector3 _targetFieldPosition;
 
     float fixedZ;
@@ -37,6 +38,7 @@ public class OBehavior : MonoBehaviour
         _netMember = GetComponent<NetMember>();
         _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
+        _forvardGhost = GetComponent<ControlledGhost>();
 
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
@@ -49,6 +51,9 @@ public class OBehavior : MonoBehaviour
 
         if(_ghost == null)
             throw new Exception("Can't find Ghost component");
+
+        if(_forvardGhost == null)
+            throw new Exception("Can't find ControlledGhost component");
 
         if(_mergeMaster == null)
             throw new Exception("Can't find MergeMaster");
@@ -160,6 +165,7 @@ public class OBehavior : MonoBehaviour
 
     void ClaimdDestination(CellState claim)
     {
+        _forvardGhost.Locate(_netMember.GetPositionAt(movingDirection));
         _netMember.SetCellState(claim, movingDirection);
     }
 
@@ -167,8 +173,9 @@ public class OBehavior : MonoBehaviour
     {
         _netMember.SetCellState(CellState.OrangeO);
         _orangator.OrangateSuit();
-        _ghost.Delete();
         _mergeMaster.RegisterOrange(gameObject);
+
+        DeleteGhosts();
 
         transform.Translate(new Vector3(0, 0, 0.5f)); // positionate object more far then others
 
@@ -178,8 +185,8 @@ public class OBehavior : MonoBehaviour
     void Merge()
     {
         _mergeMaster.MergeAt(_netMember.NetPosition);
-        _ghost.Delete();
 
+        DeleteGhosts();
         Destroy(gameObject);
     }
 
@@ -190,8 +197,13 @@ public class OBehavior : MonoBehaviour
 
     void FinishRun()
     {
-        _ghost.Delete();
-
+        DeleteGhosts();
         Destroy(gameObject);
+    }
+
+    void DeleteGhosts()
+    {
+        _ghost.Delete();
+        _forvardGhost.Delete();
     }
 }

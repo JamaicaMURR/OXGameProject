@@ -1,11 +1,11 @@
-﻿public struct OXNetPosition
+﻿public struct NetPosition
 {
     int _x, _y;
 
     public int X { get { return _x; } }
     public int Y { get { return _y; } }
 
-    public OXNetPosition(int x, int y)
+    public NetPosition(int x, int y)
     {
         _x = x;
         _y = y;

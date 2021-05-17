@@ -38,7 +38,7 @@ public class XBehavior : MonoBehaviour
     void JumpToStartPosition()
     {
         _netMember.SetDefaultCellState();
-        _netMember.JumpAt(new OXNetPosition(_netMember.NetWidth / 2, _netMember.NetHeight / 2));
+        _netMember.JumpAt(new NetPosition(_netMember.NetWidth / 2, _netMember.NetHeight / 2));
         _netMember.SetCellState(CellState.X);
     }
 }

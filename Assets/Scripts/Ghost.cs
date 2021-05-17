@@ -5,7 +5,7 @@ public class Ghost : MonoBehaviour
 {
     public GameObject ghostPrefab;
 
-    GameObject _ghost;
+    protected GameObject ghost;
 
     void Start()
     {
@@ -14,17 +14,17 @@ public class Ghost : MonoBehaviour
 
     public void Pull()
     {
-        _ghost.GetComponent<Transform>().position = transform.position;
+        ghost.GetComponent<Transform>().position = transform.position;
     }
 
     public void Delete()
     {
-        Destroy(_ghost);
+        Destroy(ghost);
     }
 
     public void Spawn()
     {
-        _ghost = Instantiate(ghostPrefab);
+        ghost = Instantiate(ghostPrefab);
         Pull();
     }
 }

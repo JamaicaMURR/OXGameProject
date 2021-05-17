@@ -14,18 +14,18 @@ public class SpawnerArranger : MonoBehaviour
     {
         for(int x = 1; x < netMaster.netWidth - 1; x++)
         {
-            SetSpawner(new OXNetPosition(x, -1), Direction.Up);
-            SetSpawner(new OXNetPosition(x, netMaster.netHeight), Direction.Down);
+            SetSpawner(new NetPosition(x, -1), Direction.Up);
+            SetSpawner(new NetPosition(x, netMaster.netHeight), Direction.Down);
         }
 
         for(int y = 1; y < netMaster.netHeight - 1; y++)
         {
-            SetSpawner(new OXNetPosition(-1, y), Direction.Right);
-            SetSpawner(new OXNetPosition(netMaster.netWidth, y), Direction.Left);
+            SetSpawner(new NetPosition(-1, y), Direction.Right);
+            SetSpawner(new NetPosition(netMaster.netWidth, y), Direction.Left);
         }
     }
 
-    void SetSpawner(OXNetPosition position, Direction direction)
+    void SetSpawner(NetPosition position, Direction direction)
     {
         GameObject newbie = Instantiate(spawnerPrefab);
 

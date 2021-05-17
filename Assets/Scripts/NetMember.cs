@@ -7,12 +7,12 @@ using System;
 /// </summary>
 public class NetMember : MonoBehaviour
 {
-    OXNetPosition _netPosition;
+    NetPosition _netPosition;
 
     [SerializeField]
     NetMaster netMaster;
 
-    public OXNetPosition NetPosition
+    public NetPosition NetPosition
     {
         get { return _netPosition; }
         set { JumpAt(value); }
@@ -43,7 +43,7 @@ public class NetMember : MonoBehaviour
     /// <summary>
     /// Sets object on field on fitted given OXnet position
     /// </summary>
-    public void JumpAt(OXNetPosition position)
+    public void JumpAt(NetPosition position)
     {
         Vector2 fieldPoint = ConvertPosition(position);
         transform.position = new Vector3(fieldPoint.x, fieldPoint.y, transform.position.z);
@@ -56,7 +56,7 @@ public class NetMember : MonoBehaviour
         JumpAt(netMaster.GetRelativePosition(NetPosition, direction));
     }
 
-    public Vector2 ConvertPosition(OXNetPosition position)
+    public Vector2 ConvertPosition(NetPosition position)
     {
         return netMaster.Convert(position);
     }
@@ -71,7 +71,7 @@ public class NetMember : MonoBehaviour
         return netMaster.GetCellState(netMaster.GetRelativePosition(NetPosition, direction));
     }
 
-    public OXNetPosition GetPositionAt(Direction direction)
+    public NetPosition GetPositionAt(Direction direction)
     {
         return netMaster.GetRelativePosition(NetPosition, direction);
     }

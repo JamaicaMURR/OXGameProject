@@ -46,7 +46,7 @@ public class NetMaster : MonoBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public Vector2 Convert(OXNetPosition position)
+    public Vector2 Convert(NetPosition position)
     {
         float x = zeroX + position.X * cellSize;
         float y = zeroY + position.Y * cellSize;
@@ -60,7 +60,7 @@ public class NetMaster : MonoBehaviour
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <returns></returns>
-    public OXNetPosition GetRelativePosition(OXNetPosition position, Direction direction)
+    public NetPosition GetRelativePosition(NetPosition position, Direction direction)
     {
         int resultX = position.X;
         int resultY = position.Y;
@@ -81,7 +81,7 @@ public class NetMaster : MonoBehaviour
                 break;
         }
 
-        return new OXNetPosition(resultX, resultY);
+        return new NetPosition(resultX, resultY);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class NetMaster : MonoBehaviour
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <returns></returns>
-    public CellState GetCellState(OXNetPosition position)
+    public CellState GetCellState(NetPosition position)
     {
         CellState result = CellState.OutOfBounds;
 
@@ -108,7 +108,7 @@ public class NetMaster : MonoBehaviour
     /// <param name="netY"></param>
     /// <param name="dir"> Direction </param>
     /// <returns></returns>
-    public CellState GetCellState(OXNetPosition position, Direction direction)
+    public CellState GetCellState(NetPosition position, Direction direction)
     {
         return GetCellState(GetRelativePosition(position, direction));
     }
@@ -118,7 +118,7 @@ public class NetMaster : MonoBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public CellState GetDefCellState(OXNetPosition position)
+    public CellState GetDefCellState(NetPosition position)
     {
         CellState result = CellState.OutOfBounds;
 
@@ -135,14 +135,14 @@ public class NetMaster : MonoBehaviour
     /// <param name="netX"></param>
     /// <param name="netY"></param>
     /// <param name="state"></param>
-    public void SetCellState(OXNetPosition position, CellState state)
+    public void SetCellState(NetPosition position, CellState state)
     {
         if(position.X >= 0 && position.X < netWidth)
             if(position.Y >= 0 && position.Y < netHeight)
                 _net[position.X, position.Y].State = state;
     }
 
-    public void SetDefaultState(OXNetPosition position)
+    public void SetDefaultState(NetPosition position)
     {
         if(position.X >= 0 && position.X < netWidth)
             if(position.Y >= 0 && position.Y < netHeight)

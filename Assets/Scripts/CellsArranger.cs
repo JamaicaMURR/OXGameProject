@@ -23,9 +23,9 @@ public class CellsArranger : MonoBehaviour
                 {
                     GameObject newbie = Instantiate(cellPrefab);
 
-                    newbie.GetComponent<NetMember>().NetPosition = new OXNetPosition(x, y);
+                    newbie.GetComponent<NetMember>().NetPosition = new NetPosition(x, y);
 
-                    if(netMaster.GetDefCellState(new OXNetPosition(x, y)) == CellState.Empty)
+                    if(netMaster.GetDefCellState(new NetPosition(x, y)) == CellState.Empty)
                         newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(1);
                     else
                         newbie.GetComponent<CellTile>().SetRandomSpriteFromSetNumber(2);

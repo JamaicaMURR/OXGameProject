@@ -7,12 +7,12 @@ public class MergeMaster : MonoBehaviour
     public NetMaster netMaster;
 
     List<GameObject> _oranges;
-    List<OXNetPosition> _positions;
+    List<NetPosition> _positions;
 
     void Awake()
     {
         _oranges = new List<GameObject>();
-        _positions = new List<OXNetPosition>();
+        _positions = new List<NetPosition>();
     }
 
     public void RegisterOrange(GameObject obj)
@@ -27,7 +27,7 @@ public class MergeMaster : MonoBehaviour
             throw new System.Exception("Given GameObject has no OXNetMember component");
     }
 
-    public void MergeAt(OXNetPosition position)
+    public void MergeAt(NetPosition position)
     {
         int mergingIndex = FindIndex(position);
 
@@ -44,16 +44,16 @@ public class MergeMaster : MonoBehaviour
         FindAndMerge(position, Direction.Right);
     }
 
-    void FindAndMerge(OXNetPosition position, Direction direction)
+    void FindAndMerge(NetPosition position, Direction direction)
     {
-        OXNetPosition relativePosition = netMaster.GetRelativePosition(position, direction);
+        NetPosition relativePosition = netMaster.GetRelativePosition(position, direction);
 
         if(netMaster.GetCellState(relativePosition) == CellState.OrangeO)
             MergeAt(relativePosition);
 
     }
 
-    int FindIndex(OXNetPosition position)
+    int FindIndex(NetPosition position)
     {
         int result = -1;
 
