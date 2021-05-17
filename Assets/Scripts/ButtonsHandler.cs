@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class ButtonsHandler : MonoBehaviour {
+public class ButtonsHandler : MonoBehaviour
+{
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.N))
+            LoadField();
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void LoadField()
+    {
+        SceneManager.LoadScene("Field");
+    }
 }
