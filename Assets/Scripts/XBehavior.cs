@@ -5,15 +5,25 @@ using Bycicles.Ranges;
 
 public class XBehavior : MonoBehaviour
 {
+    public CentralPort central;
+
     NetMember _netMember;
+    Colorator _colorator;
 
     //======================================================================================================================================
     void Start()
     {
         _netMember = GetComponent<NetMember>();
+        _colorator = GetComponent<Colorator>();
 
         if(_netMember == null)
             throw new Exception("Can't find NetMember component");
+
+        if(_colorator == null)
+            throw new Exception("Can't find Colorator component");
+
+        central.inputHandler.OnPause += _colorator.Paint;
+        central.inputHandler.OnUnPause += _colorator.Reset;
 
         JumpToStartPosition();
     }

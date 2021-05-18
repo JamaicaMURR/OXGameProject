@@ -8,4 +8,5 @@ public class CentralPort : MonoBehaviour
     public HeartsMaster pausersMaster;
     public MergeMaster mergeMaster;
     public SpawnMaster spawnMaster;
+    public FieldInputHandler inputHandler;
 }

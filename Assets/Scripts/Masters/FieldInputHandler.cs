@@ -12,6 +12,10 @@ public class FieldInputHandler : MonoBehaviour
     public CentralPort port;
     public XBehavior xBehavior;
 
+    public event Action OnPause;
+    public event Action OnUnPause;
+
+
     void Awake()
     {
         Check = Idle;
@@ -28,11 +32,17 @@ public class FieldInputHandler : MonoBehaviour
                 Time.timeScale = 0;
                 isPauserUsed = false;
                 Check = CheckPauser;
+
+                if(OnPause != null)
+                    OnPause();
             }
             else
             {
                 Time.timeScale = 1;
                 Check = Idle;
+
+                if(OnUnPause != null)
+                    OnUnPause();
             }
         }
 

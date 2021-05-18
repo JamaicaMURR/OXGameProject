@@ -5,6 +5,9 @@ using Bycicles.Ranges;
 
 public class OBehavior : MonoBehaviour
 {
+    int _stepsMoved;
+    float _fixedZ;
+
     CentralPort _central;
 
     JustMover _mover;
@@ -12,14 +15,14 @@ public class OBehavior : MonoBehaviour
     SuitOrangator _orangator;
     Ghost _ghost;
     ControlledGhost _forvardGhost;
+    Colorator _colorator;
 
-    public Direction movingDirection = Direction.Up;
+    public Direction movingDirection;
+    public Color orange;
     public float speed = 1;
 
     NetPosition _targetPosition;
     Vector3 _targetFieldPosition;
-
-    float fixedZ;
 
     Action DoOnUpdate;
 
@@ -40,6 +43,7 @@ public class OBehavior : MonoBehaviour
         _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
         _forvardGhost = GetComponent<ControlledGhost>();
+        _colorator = GetComponent<Colorator>();
 
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
@@ -56,6 +60,9 @@ public class OBehavior : MonoBehaviour
         if(_forvardGhost == null)
             throw new Exception("Can't find ControlledGhost component");
 
+        if(_colorator == null)
+            throw new Exception("Can't find Colorator component");
+
         //
         _mover.OnMovingFinish += Arrive;
 
@@ -64,12 +71,33 @@ public class OBehavior : MonoBehaviour
 
     void Start()
     {
-        fixedZ = transform.position.z;
+        _fixedZ = transform.position.z;
+
+        _central.inputHandler.OnPause += PaintSelf;
+        _central.inputHandler.OnUnPause += UnPaintSelf;
     }
 
     void Update()
     {
         DoOnUpdate();
+    }
+
+    //======================================================================================================================================
+    public void PaintSelf()
+    {
+        float exponent = 0;
+
+        if(movingDirection == Direction.Up || movingDirection == Direction.Down)
+            exponent = _stepsMoved / (float)_central.netMaster.netHeight;
+        else
+            exponent = _stepsMoved / (float)_central.netMaster.netWidth;
+
+        _colorator.Paint(exponent);
+    }
+
+    public void UnPaintSelf()
+    {
+        _colorator.Reset();
     }
 
     //======================================================================================================================================
@@ -158,6 +186,8 @@ public class OBehavior : MonoBehaviour
 
     void Arrive()
     {
+        _stepsMoved++;
+
         _netMember.SetDefaultCellState();
         _netMember.NetPosition = _targetPosition;
 
@@ -171,7 +201,7 @@ public class OBehavior : MonoBehaviour
         _targetPosition = _netMember.GetPositionAt(movingDirection);
 
         Vector2 fieldPoint = _netMember.ConvertPosition(_targetPosition);
-        _targetFieldPosition = new Vector3(fieldPoint.x, fieldPoint.y, fixedZ);
+        _targetFieldPosition = new Vector3(fieldPoint.x, fieldPoint.y, _fixedZ);
     }
 
     void ClaimdDestination(CellState claim)
@@ -183,10 +213,12 @@ public class OBehavior : MonoBehaviour
     void BecomeOrange()
     {
         _netMember.SetCellState(CellState.OrangeO);
-        _orangator.OrangateSuit();
         _central.mergeMaster.RegisterOrange(gameObject);
+        _colorator.targetColor = orange;
+        _colorator.Paint();
 
         DeleteGhosts();
+        UnSubscribeAll();
 
         transform.Translate(new Vector3(0, 0, 0.5f)); // positionate object more far then others
 
@@ -198,6 +230,7 @@ public class OBehavior : MonoBehaviour
         _central.mergeMaster.MergeAt(_netMember.NetPosition);
 
         DeleteGhosts();
+        UnSubscribeAll();
         Destroy(gameObject);
     }
 
@@ -212,6 +245,7 @@ public class OBehavior : MonoBehaviour
         _netMember.SetDefaultCellState();
 
         DeleteGhosts();
+        UnSubscribeAll();
         Destroy(gameObject);
     }
 
@@ -219,5 +253,11 @@ public class OBehavior : MonoBehaviour
     {
         _ghost.Delete();
         _forvardGhost.Delete();
+    }
+
+    void UnSubscribeAll()
+    {
+        _central.inputHandler.OnPause -= PaintSelf;
+        _central.inputHandler.OnUnPause -= UnPaintSelf;
     }
 }
