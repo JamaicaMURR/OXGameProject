@@ -50,6 +50,7 @@
      <Compile Include="Assets\Classes\Direction.cs" />
      <Compile Include="Assets\Classes\NetPosition.cs" />
      <Compile Include="Assets\Scripts\CellTile.cs" />
+     <Compile Include="Assets\Scripts\Colorator.cs" />
      <Compile Include="Assets\Scripts\ControlledGhost.cs" />
      <Compile Include="Assets\Scripts\Ghost.cs" />
      <Compile Include="Assets\Scripts\JustMover.cs" />
