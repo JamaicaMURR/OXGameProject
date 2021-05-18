@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class MergeMaster : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class MergeMaster : MonoBehaviour
             throw new System.Exception("Given GameObject has no OXNetMember component");
     }
 
-    public void MergeAt(NetPosition position)
+    public void MergeAt(NetPosition position, ref int succesCounter)
     {
         int mergingIndex = FindIndex(position);
 
@@ -38,21 +39,29 @@ public class MergeMaster : MonoBehaviour
         _oranges.RemoveAt(mergingIndex);
         _positions.RemoveAt(mergingIndex);
 
-        FindAndMerge(position, Direction.Up);
-        FindAndMerge(position, Direction.Down);
-        FindAndMerge(position, Direction.Left);
-        FindAndMerge(position, Direction.Right);
+        succesCounter++;
 
-        central.pointsMaster.Points += 1000;
+        FindAndMerge(position, Direction.Up, ref succesCounter);
+        FindAndMerge(position, Direction.Down, ref succesCounter);
+        FindAndMerge(position, Direction.Left, ref succesCounter);
+        FindAndMerge(position, Direction.Right, ref succesCounter);
     }
 
-    void FindAndMerge(NetPosition position, Direction direction)
+    public void MergeAt(NetPosition position)
+    {
+        int totalMerged = 0;
+
+        MergeAt(position, ref totalMerged);
+
+        central.pointsMaster.Reward(totalMerged);
+    }
+
+    void FindAndMerge(NetPosition position, Direction direction, ref int succesCounter)
     {
         NetPosition relativePosition = central.netMaster.GetRelativePosition(position, direction);
 
         if(central.netMaster.GetCellState(relativePosition) == CellState.OrangeO)
-            MergeAt(relativePosition);
-
+            MergeAt(relativePosition, ref succesCounter);
     }
 
     int FindIndex(NetPosition position)

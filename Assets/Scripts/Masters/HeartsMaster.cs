@@ -23,6 +23,8 @@ public class HeartsMaster : MonoBehaviour
         }
     }
 
+    public int MaximalHearts { get { return heartImages.Length; } }
+
     public Image[] heartImages;
 
     public event Action OnZeroHearts;
