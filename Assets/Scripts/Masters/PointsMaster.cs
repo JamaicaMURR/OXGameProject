@@ -27,6 +27,11 @@ public class PointsMaster : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        central.heartsMaster.OnZeroHearts += RememberRecord;
+    }
+
     void Update()
     {
         displayField.text = _dispalyPoints.ToString();
@@ -58,5 +63,13 @@ public class PointsMaster : MonoBehaviour
             else
                 Points += heartBonus;
         }
+    }
+
+    public void RememberRecord()
+    {
+        int oldRec = PlayerPrefs.GetInt("record");
+
+        if(Points > oldRec)
+            PlayerPrefs.SetInt("record", Points);
     }
 }

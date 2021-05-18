@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Masters\SpawnerArranger.cs" />
      <Compile Include="Assets\Scripts\NetMember.cs" />
      <Compile Include="Assets\Scripts\OBehavior.cs" />
+     <Compile Include="Assets\Scripts\RecordKeeper.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\SpriteSwaper.cs" />
      <Compile Include="Assets\Scripts\SuitChanger.cs" />
