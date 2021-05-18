@@ -33,7 +33,7 @@ public class MergeMaster : MonoBehaviour
 
         netMaster.SetDefaultState(position);
 
-        Destroy(_oranges[mergingIndex]);
+        _oranges[mergingIndex].GetComponent<OBehavior>().DieAtMerging();
 
         _oranges.RemoveAt(mergingIndex);
         _positions.RemoveAt(mergingIndex);

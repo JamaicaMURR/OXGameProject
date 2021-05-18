@@ -5,23 +5,23 @@ using Bycicles.Ranges;
 public class Colorator : MonoBehaviour
 {
     SpriteRenderer _rendrer;
-    Color _initialColor;
 
+    public Color initialColor;
     public Color targetColor;
 
     void Awake()
     {
         _rendrer = GetComponent<SpriteRenderer>();
-        _initialColor = _rendrer.color;
+        initialColor = _rendrer.color;
     }
 
     public void Paint(float exponent)
     {
         exponent.ExNotBelow(0, "Color exponent").ExNotAbove(1, "Color exponent");
 
-        float r = (targetColor.r - _initialColor.r) * exponent + _initialColor.r;
-        float g = (targetColor.g - _initialColor.g) * exponent + _initialColor.g;
-        float b = (targetColor.b - _initialColor.b) * exponent + _initialColor.b;
+        float r = (targetColor.r - initialColor.r) * exponent + initialColor.r;
+        float g = (targetColor.g - initialColor.g) * exponent + initialColor.g;
+        float b = (targetColor.b - initialColor.b) * exponent + initialColor.b;
 
         _rendrer.color = new Color(r, g, b);
     }
@@ -33,6 +33,6 @@ public class Colorator : MonoBehaviour
 
     public void Reset()
     {
-        _rendrer.color = _initialColor;
+        _rendrer.color = initialColor;
     }
 }

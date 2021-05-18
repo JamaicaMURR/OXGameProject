@@ -12,13 +12,13 @@ public class OBehavior : MonoBehaviour
 
     JustMover _mover;
     NetMember _netMember;
-    SuitOrangator _orangator;
     Ghost _ghost;
     ControlledGhost _forvardGhost;
     Colorator _colorator;
 
     public Direction movingDirection;
     public Color orange;
+    public Color orangeOnPause;
     public float speed = 1;
 
     NetPosition _targetPosition;
@@ -40,7 +40,6 @@ public class OBehavior : MonoBehaviour
         //
         _mover = GetComponent<JustMover>();
         _netMember = GetComponent<NetMember>();
-        _orangator = GetComponent<SuitOrangator>();
         _ghost = GetComponent<Ghost>();
         _forvardGhost = GetComponent<ControlledGhost>();
         _colorator = GetComponent<Colorator>();
@@ -50,9 +49,6 @@ public class OBehavior : MonoBehaviour
 
         if(_netMember == null)
             throw new Exception("Cen't find OXNetMember component");
-
-        if(_orangator == null)
-            throw new Exception("Can't find SuitOrangator component");
 
         if(_ghost == null)
             throw new Exception("Can't find Ghost component");
@@ -100,6 +96,11 @@ public class OBehavior : MonoBehaviour
         _colorator.Reset();
     }
 
+    public void DieAtMerging()
+    {
+        UnSubscribeAll();
+        Destroy(gameObject);
+    }
     //======================================================================================================================================
     void LookAround()
     {
@@ -214,11 +215,18 @@ public class OBehavior : MonoBehaviour
     {
         _netMember.SetCellState(CellState.OrangeO);
         _central.mergeMaster.RegisterOrange(gameObject);
-        _colorator.targetColor = orange;
-        _colorator.Paint();
+
+        UnSubscribeAll();
+
+        _colorator.initialColor = orange;
+        _colorator.targetColor = orangeOnPause;
+
+        _colorator.Reset();
+
+        _central.inputHandler.OnPause += _colorator.Paint;
+        _central.inputHandler.OnUnPause += _colorator.Reset;
 
         DeleteGhosts();
-        UnSubscribeAll();
 
         transform.Translate(new Vector3(0, 0, 0.5f)); // positionate object more far then others
 
@@ -259,5 +267,8 @@ public class OBehavior : MonoBehaviour
     {
         _central.inputHandler.OnPause -= PaintSelf;
         _central.inputHandler.OnUnPause -= UnPaintSelf;
+
+        _central.inputHandler.OnPause -= _colorator.Paint;
+        _central.inputHandler.OnUnPause -= _colorator.Reset;
     }
 }

@@ -6,6 +6,7 @@ public class Ghost : MonoBehaviour
     public GameObject ghostPrefab;
 
     protected GameObject ghost;
+    protected Transform ghostTransform;
 
     void Start()
     {
@@ -14,17 +15,19 @@ public class Ghost : MonoBehaviour
 
     public void Pull()
     {
-        ghost.GetComponent<Transform>().position = transform.position;
+        ghostTransform.position = new Vector3(transform.position.x, transform.position.y, ghostTransform.position.z);
     }
 
     public void Delete()
     {
-        Destroy(ghost);
+        if(ghost != null)
+            Destroy(ghost);
     }
 
     public void Spawn()
     {
         ghost = Instantiate(ghostPrefab);
+        ghostTransform = ghost.GetComponent<Transform>();
         Pull();
     }
 }
