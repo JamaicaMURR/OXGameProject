@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MergeMaster : MonoBehaviour
 {
-    public NetMaster netMaster;
+    public CentralPort central;
 
     List<GameObject> _oranges;
     List<NetPosition> _positions;
@@ -31,7 +31,7 @@ public class MergeMaster : MonoBehaviour
     {
         int mergingIndex = FindIndex(position);
 
-        netMaster.SetDefaultState(position);
+        central.netMaster.SetDefaultState(position);
 
         _oranges[mergingIndex].GetComponent<OBehavior>().DieAtMerging();
 
@@ -42,13 +42,15 @@ public class MergeMaster : MonoBehaviour
         FindAndMerge(position, Direction.Down);
         FindAndMerge(position, Direction.Left);
         FindAndMerge(position, Direction.Right);
+
+        central.pointsMaster.Points += 1000;
     }
 
     void FindAndMerge(NetPosition position, Direction direction)
     {
-        NetPosition relativePosition = netMaster.GetRelativePosition(position, direction);
+        NetPosition relativePosition = central.netMaster.GetRelativePosition(position, direction);
 
-        if(netMaster.GetCellState(relativePosition) == CellState.OrangeO)
+        if(central.netMaster.GetCellState(relativePosition) == CellState.OrangeO)
             MergeAt(relativePosition);
 
     }
