@@ -14,4 +14,9 @@ public class ButtonsHandler : MonoBehaviour
     {
         SceneManager.LoadScene("Field");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
