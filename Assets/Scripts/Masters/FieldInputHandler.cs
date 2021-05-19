@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class FieldInputHandler : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class FieldInputHandler : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetButtonDown("EscapeToMenu"))
+            SceneManager.LoadScene("Menu");
+
         if(Input.GetButtonDown("Pause"))
         {
             isPaused = !isPaused;

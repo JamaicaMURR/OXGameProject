@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class PointsMaster : MonoBehaviour
 {
     int _points;
     int _dispalyPoints;
+
+    float _timePassed;
 
     public CentralPort central;
     public Text displayField;
@@ -16,7 +19,14 @@ public class PointsMaster : MonoBehaviour
     public int pauserBonus = 10;
     public int heartBonusPlank = 7;
     public int heartBonus = 25;
-    public int cypherRefreshSpeed = 10;
+
+    public float cypherRefreshPeriod = 0.1f;
+
+    public event Action OnPause;
+    public event Action OnPauserUse;
+    public event Action OnUnPause;
+    public event Action OnReward;
+    public event Action OnEscape;
 
     public int Points
     {
@@ -34,34 +44,48 @@ public class PointsMaster : MonoBehaviour
 
     void Update()
     {
+        _timePassed += Time.deltaTime;
+
         displayField.text = _dispalyPoints.ToString();
 
-        int difference = _points - _dispalyPoints;
+        if(_timePassed >= cypherRefreshPeriod)
+        {
+            int difference = _points - _dispalyPoints;
 
-        if(difference > cypherRefreshSpeed)
-            _dispalyPoints += difference / cypherRefreshSpeed;
-        else
-            _dispalyPoints = _points;
+            if(difference > 99)
+                _dispalyPoints += 100;
+            else if(difference > 9)
+                _dispalyPoints += 10;
+            else if(difference != 0)
+                _dispalyPoints++;
+
+            _timePassed -= cypherRefreshPeriod;
+        }
     }
 
     public void Reward(int totalMerged)
     {
-        Points += (2 * mergeReward + progressionBonus * (totalMerged - 2)) / 2 * (totalMerged - 1); // summ of members of arithmetic progression
+        totalMerged--; // no reward for 1 merged O
 
-        if(totalMerged >= pauserBonusPlank)
+        if(totalMerged > 0)
         {
-            if(central.pausersMaster.Hearts < central.pausersMaster.MaximalHearts)
-                central.pausersMaster.Hearts++;
-            else
-                Points += pauserBonus;
-        }
+            Points += (2 * mergeReward + progressionBonus * (totalMerged - 1)) / 2 * totalMerged; // summ of members of arithmetic progression
 
-        if(totalMerged >= heartBonusPlank)
-        {
-            if(central.heartsMaster.Hearts < central.heartsMaster.MaximalHearts)
-                central.heartsMaster.Hearts++;
-            else
-                Points += heartBonus;
+            if(totalMerged >= pauserBonusPlank)
+            {
+                if(central.pausersMaster.Hearts < central.pausersMaster.MaximalHearts)
+                    central.pausersMaster.Hearts++;
+                else
+                    Points += pauserBonus;
+            }
+
+            if(totalMerged >= heartBonusPlank)
+            {
+                if(central.heartsMaster.Hearts < central.heartsMaster.MaximalHearts)
+                    central.heartsMaster.Hearts++;
+                else
+                    Points += heartBonus;
+            }
         }
     }
 
