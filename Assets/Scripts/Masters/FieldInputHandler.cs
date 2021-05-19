@@ -15,7 +15,7 @@ public class FieldInputHandler : MonoBehaviour
 
     public event Action OnPause;
     public event Action OnUnPause;
-
+    public event Action OnEscape;
 
     void Awake()
     {
@@ -25,7 +25,12 @@ public class FieldInputHandler : MonoBehaviour
     void Update()
     {
         if(Input.GetButtonDown("EscapeToMenu"))
+        {
+            if(OnEscape != null)
+                OnEscape();
+
             SceneManager.LoadScene("Menu");
+        }
 
         if(Input.GetButtonDown("Pause"))
         {

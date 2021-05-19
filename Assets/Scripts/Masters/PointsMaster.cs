@@ -16,29 +16,17 @@ public class PointsMaster : MonoBehaviour
     public int mergeReward = 1;
     public int progressionBonus = 1;
     public int pauserBonusPlank = 5;
-    public int pauserBonus = 10;
     public int heartBonusPlank = 7;
-    public int heartBonus = 25;
 
     public float cypherRefreshPeriod = 0.1f;
 
-    public event Action OnPause;
-    public event Action OnPauserUse;
-    public event Action OnUnPause;
     public event Action OnReward;
-    public event Action OnEscape;
-
-    public int Points
-    {
-        get { return _points; }
-        set
-        {
-            _points = value;
-        }
-    }
+    public event EventWithInt OnPausersReward;
+    public event EventWithInt OnHeartsReward;
 
     void Awake()
     {
+        central.inputHandler.OnEscape += RememberRecord;
         central.heartsMaster.OnZeroHearts += RememberRecord;
     }
 
@@ -50,13 +38,7 @@ public class PointsMaster : MonoBehaviour
 
         if(_timePassed >= cypherRefreshPeriod)
         {
-            int difference = _points - _dispalyPoints;
-
-            if(difference > 99)
-                _dispalyPoints += 100;
-            else if(difference > 9)
-                _dispalyPoints += 10;
-            else if(difference != 0)
+            if(_points - _dispalyPoints != 0)
                 _dispalyPoints++;
 
             _timePassed -= cypherRefreshPeriod;
@@ -65,27 +47,35 @@ public class PointsMaster : MonoBehaviour
 
     public void Reward(int totalMerged)
     {
-        totalMerged--; // no reward for 1 merged O
+        if(OnReward != null)
+            OnReward();
 
-        if(totalMerged > 0)
+        int mergesToReward = totalMerged - 1; // no reward for 1 merged O
+
+        if(mergesToReward > 0)
         {
-            Points += (2 * mergeReward + progressionBonus * (totalMerged - 1)) / 2 * totalMerged; // summ of members of arithmetic progression
+            int rewardPoints = (int)((2 * mergeReward + progressionBonus * (mergesToReward - 1)) / 2f * mergesToReward); // summ of members of arithmetic progression
 
-            if(totalMerged >= pauserBonusPlank)
+            int pausersReward = totalMerged - pauserBonusPlank + 1;
+            int heartsReward = totalMerged - heartBonusPlank + 1;
+
+            if(pausersReward > 0)
             {
-                if(central.pausersMaster.Hearts < central.pausersMaster.MaximalHearts)
-                    central.pausersMaster.Hearts++;
-                else
-                    Points += pauserBonus;
+                if(OnPausersReward != null)
+                    OnPausersReward(central.pausersMaster.MaximalHearts - central.pausersMaster.Hearts);
+
+                central.pausersMaster.Hearts += pausersReward;
             }
 
-            if(totalMerged >= heartBonusPlank)
+            if(heartsReward > 0)
             {
-                if(central.heartsMaster.Hearts < central.heartsMaster.MaximalHearts)
-                    central.heartsMaster.Hearts++;
-                else
-                    Points += heartBonus;
+                if(OnHeartsReward != null)
+                    OnHeartsReward(central.heartsMaster.MaximalHearts - central.heartsMaster.Hearts);
+
+                central.heartsMaster.Hearts += heartsReward;
             }
+
+            _points += rewardPoints;
         }
     }
 
@@ -93,7 +83,7 @@ public class PointsMaster : MonoBehaviour
     {
         int oldRec = PlayerPrefs.GetInt("record");
 
-        if(Points > oldRec)
-            PlayerPrefs.SetInt("record", Points);
+        if(_points > oldRec)
+            PlayerPrefs.SetInt("record", _points);
     }
 }
