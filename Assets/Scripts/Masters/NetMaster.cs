@@ -24,12 +24,11 @@ public class NetMaster : MonoBehaviour
         for(int x = 0; x < netWidth; x++)
             for(int y = 0; y < netHeight; y++)
             {
-                if(x == 0 ^ y == 0 ^ x == netWidth - 1 ^ y == netHeight - 1)
+                // Field border cells get default state "Dark" 
+                if(x == 0 || y == 0 || x == netWidth - 1 || y == netHeight - 1)
                     _net[x, y] = new Cell(CellState.Dark);
-                else if(x == 0 || y == 0 || x == netWidth - 1 || y == netHeight - 1)
-                    _net[x, y] = new Cell(CellState.OutOfBounds);
                 else
-                    _net[x, y] = new Cell();
+                    _net[x, y] = new Cell(CellState.Empty);
             }
 
         // calculates x & y of zero cell

@@ -6,8 +6,10 @@ public class RecordKeeper : MonoBehaviour
 {
     public ButtonsHandler buttonsHandler;
     public Text textField;
+
     public string headString = "Record: ";
 
+    //============================================================================================================================================================================
     void Awake()
     {
         buttonsHandler.OnWipeRecord += Wipe;
@@ -18,6 +20,7 @@ public class RecordKeeper : MonoBehaviour
         Display();
     }
 
+    //============================================================================================================================================================================
     public void Display()
     {
         textField.text = headString + PlayerPrefs.GetInt("record").ToString();

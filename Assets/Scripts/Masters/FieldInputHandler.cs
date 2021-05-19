@@ -29,6 +29,8 @@ public class FieldInputHandler : MonoBehaviour
             if(OnEscape != null)
                 OnEscape();
 
+            Time.timeScale = 1; // If esccape used when game paused
+
             SceneManager.LoadScene("Menu");
         }
 
