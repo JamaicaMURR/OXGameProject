@@ -10,7 +10,7 @@ public class XBehavior : MonoBehaviour
     NetMember _netMember;
     Colorator _colorator;
 
-    //======================================================================================================================================
+    //============================================================================================================================================================================
     void Start()
     {
         _netMember = GetComponent<NetMember>();
@@ -28,7 +28,7 @@ public class XBehavior : MonoBehaviour
         JumpToStartPosition();
     }
 
-    //======================================================================================================================================
+    //============================================================================================================================================================================
     /// <summary>
     /// Tries to move X at given direction
     /// </summary>
@@ -45,10 +45,11 @@ public class XBehavior : MonoBehaviour
         }
     }
 
+    //============================================================================================================================================================================
     void JumpToStartPosition()
     {
         _netMember.SetDefaultCellState();
-        _netMember.JumpAt(new NetPosition(_netMember.NetWidth / 2, _netMember.NetHeight / 2));
+        _netMember.JumpAt(new NetPosition(central.netMaster.netWidth / 2, central.netMaster.netHeight / 2));
         _netMember.SetCellState(CellState.X);
     }
 }

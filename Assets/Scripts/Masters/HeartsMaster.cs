@@ -6,42 +6,44 @@ using Bycicles.Ranges;
 
 public class HeartsMaster : MonoBehaviour
 {
-    int _hearts;
+    int _units;
 
-    public int Hearts
+    public int Units
     {
-        get { return _hearts; }
+        get { return _units; }
         set
         {
-            _hearts = value.ExNotBelow(0, "Hearts value").NotAbove(heartImages.Length);
+            _units = value.ExNotBelow(0, "Hearts value").NotAbove(unitImages.Length);
 
-            if(_hearts == 0)
-                if(OnZeroHearts != null)
-                    OnZeroHearts();
+            if(_units == 0)
+                if(OnZeroUnits != null)
+                    OnZeroUnits();
 
-            HighlightHearts(_hearts);
+            HighlightUnits(_units);
         }
     }
 
-    public int MaximalHearts { get { return heartImages.Length; } }
+    public int MaximalUnits { get { return unitImages.Length; } }
 
-    public Image[] heartImages;
+    public Image[] unitImages;
 
-    public event Action OnZeroHearts;
+    public event Action OnZeroUnits;
 
+    //============================================================================================================================================================================
     void Start()
     {
-        Hearts = heartImages.Length;
+        Units = unitImages.Length;
     }
 
-    void HighlightHearts(int number)
+    //============================================================================================================================================================================
+    void HighlightUnits(int number)
     {
-        for(int i = 0; i < heartImages.Length; i++)
+        for(int i = 0; i < unitImages.Length; i++)
         {
             if(i < number)
-                heartImages[i].enabled = true;
+                unitImages[i].enabled = true;
             else
-                heartImages[i].enabled = false;
+                unitImages[i].enabled = false;
         }
     }
 }

@@ -249,7 +249,7 @@ public class OBehavior : MonoBehaviour
 
     void FinishRun()
     {
-        _central.heartsMaster.Hearts--;
+        _central.heartsMaster.Units--;
         _netMember.SetDefaultCellState();
 
         DeleteGhosts();

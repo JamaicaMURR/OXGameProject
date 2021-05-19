@@ -7,6 +7,7 @@ public class FieldInputHandler : MonoBehaviour
 {
     bool isPaused = false;
     bool isPauserUsed = false;
+    bool isLocked = false;
 
     Action Check;
 
@@ -24,72 +25,99 @@ public class FieldInputHandler : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R)) //<--------------------------------------------------! test only
+            Retry();
+
+        if(Input.GetKeyDown(KeyCode.L)) //<--------------------------------------------------! test only
+            LockGame();
+
         if(Input.GetButtonDown("EscapeToMenu"))
+            EscapeToMenu();
+
+        if(!isLocked)
         {
-            if(OnEscape != null)
-                OnEscape();
-
-            Time.timeScale = 1; // If esccape used when game paused
-
-            SceneManager.LoadScene("Menu");
-        }
-
-        if(Input.GetButtonDown("Pause"))
-        {
-            isPaused = !isPaused;
-
-            if(isPaused)
+            if(Input.GetButtonDown("Pause"))
             {
-                Time.timeScale = 0;
-                isPauserUsed = false;
-                Check = CheckPauser;
+                isPaused = !isPaused;
 
-                if(OnPause != null)
-                    OnPause();
-            }
-            else
-            {
-                Time.timeScale = 1;
-                Check = Idle;
+                if(isPaused)
+                {
+                    Time.timeScale = 0;
+                    Check = CheckPauser;
 
-                if(OnUnPause != null)
-                    OnUnPause();
-            }
-        }
+                    if(OnPause != null)
+                        OnPause();
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    isPauserUsed = false;
+                    Check = Idle;
 
-        if(!isPaused || isPauserUsed || port.pausersMaster.Hearts > 0)
-        {
-            if(Input.GetButtonDown("Up"))
-            {
-                xBehavior.TryToMove(Direction.Up);
-                Check();
+                    if(OnUnPause != null)
+                        OnUnPause();
+                }
             }
 
-            if(Input.GetButtonDown("Down"))
+            if(!isPaused || isPauserUsed || port.pausersMaster.Units > 0)
             {
-                xBehavior.TryToMove(Direction.Down);
-                Check();
-            }
+                if(Input.GetButtonDown("Up"))
+                {
+                    xBehavior.TryToMove(Direction.Up);
+                    Check();
+                }
 
-            if(Input.GetButtonDown("Left"))
-            {
-                xBehavior.TryToMove(Direction.Left);
-                Check();
-            }
+                if(Input.GetButtonDown("Down"))
+                {
+                    xBehavior.TryToMove(Direction.Down);
+                    Check();
+                }
 
-            if(Input.GetButtonDown("Right"))
-            {
-                xBehavior.TryToMove(Direction.Right);
-                Check();
+                if(Input.GetButtonDown("Left"))
+                {
+                    xBehavior.TryToMove(Direction.Left);
+                    Check();
+                }
+
+                if(Input.GetButtonDown("Right"))
+                {
+                    xBehavior.TryToMove(Direction.Right);
+                    Check();
+                }
             }
         }
     }
 
+    //============================================================================================================================================================================
+    public void LockGame()
+    {
+        Time.timeScale = 0;
+        isLocked = true;
+    }
+
+    public void Retry()
+    {
+        Time.timeScale = 1; // If retry used when game paused or locked
+
+        SceneManager.LoadScene("Field");
+    }
+
+    public void EscapeToMenu()
+    {
+        if(OnEscape != null)
+            OnEscape();
+
+        Time.timeScale = 1; // If esccape used when game is paused or locked
+
+        SceneManager.LoadScene("Menu");
+    }
+
+    //============================================================================================================================================================================
     void CheckPauser()
     {
         if(isPaused && !isPauserUsed)
         {
-            port.pausersMaster.Hearts--;
+            port.pausersMaster.Units--;
             isPauserUsed = true;
             Check = Idle;
         }

@@ -27,7 +27,7 @@ public class PointsMaster : MonoBehaviour
     void Awake()
     {
         central.inputHandler.OnEscape += RememberRecord;
-        central.heartsMaster.OnZeroHearts += RememberRecord;
+        central.heartsMaster.OnZeroUnits += RememberRecord;
     }
 
     void Update()
@@ -62,17 +62,17 @@ public class PointsMaster : MonoBehaviour
             if(pausersReward > 0)
             {
                 if(OnPausersReward != null)
-                    OnPausersReward(central.pausersMaster.MaximalHearts - central.pausersMaster.Hearts);
+                    OnPausersReward(central.pausersMaster.MaximalUnits - central.pausersMaster.Units);
 
-                central.pausersMaster.Hearts += pausersReward;
+                central.pausersMaster.Units += pausersReward;
             }
 
             if(heartsReward > 0)
             {
                 if(OnHeartsReward != null)
-                    OnHeartsReward(central.heartsMaster.MaximalHearts - central.heartsMaster.Hearts);
+                    OnHeartsReward(central.heartsMaster.MaximalUnits - central.heartsMaster.Units);
 
-                central.heartsMaster.Hearts += heartsReward;
+                central.heartsMaster.Units += heartsReward;
             }
 
             _points += rewardPoints;
