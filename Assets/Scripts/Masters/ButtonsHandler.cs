@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class ButtonsHandler : MonoBehaviour
 {
+    public event Action OnWipeRecord;
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.N))
-            LoadField();
+            StartGame();
     }
 
-    public void LoadField()
+    public void StartGame()
     {
         SceneManager.LoadScene("Field");
     }
@@ -18,5 +21,11 @@ public class ButtonsHandler : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void WipeRecord()
+    {
+        if(OnWipeRecord != null)
+            OnWipeRecord();
     }
 }

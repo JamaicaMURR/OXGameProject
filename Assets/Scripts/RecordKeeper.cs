@@ -4,14 +4,28 @@ using System.Collections;
 
 public class RecordKeeper : MonoBehaviour
 {
+    public ButtonsHandler buttonsHandler;
     public Text textField;
     public string headString = "Record: ";
 
+    void Awake()
+    {
+        buttonsHandler.OnWipeRecord += Wipe;
+    }
+
     void Start()
     {
-        int actualRecord = PlayerPrefs.GetInt("record");
+        Display();
+    }
 
+    public void Display()
+    {
+        textField.text = headString + PlayerPrefs.GetInt("record").ToString();
+    }
 
-        textField.text = headString + actualRecord.ToString();
+    public void Wipe()
+    {
+        PlayerPrefs.SetInt("record", 0);
+        Display();
     }
 }
