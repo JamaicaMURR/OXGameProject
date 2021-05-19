@@ -16,6 +16,8 @@ public class FieldInputHandler : MonoBehaviour
 
     public event Action OnPause;
     public event Action OnUnPause;
+    public event Action OnPauserUsing;
+    public event Action OnLock;
     public event Action OnEscape;
 
     void Awake()
@@ -93,6 +95,9 @@ public class FieldInputHandler : MonoBehaviour
     {
         Time.timeScale = 0;
         isLocked = true;
+
+        if(OnLock != null)
+            OnLock();
     }
 
     public void Retry()
@@ -120,6 +125,9 @@ public class FieldInputHandler : MonoBehaviour
             port.pausersMaster.Units--;
             isPauserUsed = true;
             Check = Idle;
+
+            if(OnPauserUsing != null)
+                OnPauserUsing();
         }
     }
 

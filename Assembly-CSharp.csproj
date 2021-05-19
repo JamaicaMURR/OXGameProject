@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Masters\PointsMaster.cs" />
     <Compile Include="Assets\Scripts\Masters\SpawnMaster.cs" />
     <Compile Include="Assets\Scripts\Masters\SpawnerArranger.cs" />
+    <Compile Include="Assets\Scripts\Masters\MessageMaster.cs" />
     <Compile Include="Assets\Scripts\NetMember.cs" />
     <Compile Include="Assets\Scripts\OBehavior.cs" />
     <Compile Include="Assets\Scripts\RecordKeeper.cs" />
