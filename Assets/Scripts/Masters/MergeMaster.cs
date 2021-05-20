@@ -23,7 +23,7 @@ public class MergeMaster : MonoBehaviour
         NetMember member = obj.GetComponent<NetMember>();
 
         if(member != null)
-            _positions.Add(member.NetPosition);
+            _positions.Add(member.Position);
         else
             throw new System.Exception("Given GameObject has no OXNetMember component");
     }

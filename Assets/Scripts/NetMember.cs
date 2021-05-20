@@ -12,7 +12,11 @@ public class NetMember : MonoBehaviour
     [SerializeField]
     NetMaster netMaster;
 
-    public NetPosition NetPosition
+    public bool useInitialPositon = false;
+    public int x = 0;
+    public int y = 0;
+
+    public NetPosition Position
     {
         get { return _netPosition; }
         set { JumpAt(value); }
@@ -39,6 +43,12 @@ public class NetMember : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        if(useInitialPositon)
+            Position = new NetPosition(x, y);
+    }
+
     //======================================================================================================================================
     /// <summary>
     /// Sets object on field on fitted given OXnet position
@@ -53,7 +63,7 @@ public class NetMember : MonoBehaviour
 
     public void JumpAt(Direction direction)
     {
-        JumpAt(netMaster.GetRelativePosition(NetPosition, direction));
+        JumpAt(netMaster.GetRelativePosition(Position, direction));
     }
 
     public Vector2 ConvertPosition(NetPosition position)
@@ -63,32 +73,32 @@ public class NetMember : MonoBehaviour
 
     public CellState GetCellState()
     {
-        return netMaster.GetCellState(NetPosition);
+        return netMaster.GetCellState(Position);
     }
 
     public CellState GetCellState(Direction direction)
     {
-        return netMaster.GetCellState(netMaster.GetRelativePosition(NetPosition, direction));
+        return netMaster.GetCellState(netMaster.GetRelativePosition(Position, direction));
     }
 
     public NetPosition GetPositionAt(Direction direction)
     {
-        return netMaster.GetRelativePosition(NetPosition, direction);
+        return netMaster.GetRelativePosition(Position, direction);
     }
 
     public void SetCellState(CellState state)
     {
-        netMaster.SetCellState(NetPosition, state);
+        netMaster.SetCellState(Position, state);
     }
 
     public void SetCellState(CellState state, Direction direction)
     {
-        netMaster.SetCellState(netMaster.GetRelativePosition(NetPosition, direction), state);
+        netMaster.SetCellState(netMaster.GetRelativePosition(Position, direction), state);
     }
 
     public void SetDefaultCellState()
     {
-        netMaster.SetDefaultState(NetPosition);
+        netMaster.SetDefaultState(Position);
     }
 
 }

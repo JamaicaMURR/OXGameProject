@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,22 +7,23 @@ public class SpriteAnimator : MonoBehaviour
 {
     int _currentFrame;
 
+    float _frameDelay;
+
     SpriteRenderer spriteRenderer;
 
-    [HideInInspector]
-    public float animationTime;
-
     public Sprite[] frames;
-    public float frameDelay;
+    public float animationTime = 1;
+
+    public event Action OnAnimationEnd;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        animationTime = frames.Length * frameDelay;
+        _frameDelay = animationTime / frames.Length;
     }
 
-    public void Animate()
+    public void StartAnimation()
     {
         StartCoroutine("Animation");
     }
@@ -31,7 +33,12 @@ public class SpriteAnimator : MonoBehaviour
         foreach(Sprite sprite in frames)
         {
             spriteRenderer.sprite = sprite;
-            yield return new WaitForSeconds(frameDelay);
+            yield return new WaitForSeconds(_frameDelay);
         }
+
+        if(OnAnimationEnd != null)
+            OnAnimationEnd();
+
+        yield break;
     }
 }

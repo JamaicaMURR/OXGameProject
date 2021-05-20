@@ -83,8 +83,6 @@ public class OBehavior : MonoBehaviour
         _central.inputHandler.OnPause += PaintSelf;
         _central.inputHandler.OnUnPause += UnPaintSelf;
 
-        _suitChanger.ChangeSuit(); // Random sprite shanges by suitChanger
-
         _ghost.Spawn();
         _ghost.SetSprite(backwardGhostSprite);
 
@@ -117,7 +115,7 @@ public class OBehavior : MonoBehaviour
 
     public void DieAtMerging()
     {
-        mergingAnimator.Animate();
+        mergingAnimator.StartAnimation();
 
         UnSubscribeAll();
         Destroy(gameObject, mergingAnimator.animationTime);
@@ -213,7 +211,7 @@ public class OBehavior : MonoBehaviour
         _stepsMoved++;
 
         _netMember.SetDefaultCellState();
-        _netMember.NetPosition = _targetPosition;
+        _netMember.Position = _targetPosition;
 
         _ghost.Pull();
 
@@ -258,7 +256,7 @@ public class OBehavior : MonoBehaviour
 
     void Merge()
     {
-        _central.mergeMaster.MergeAt(_netMember.NetPosition);
+        _central.mergeMaster.MergeAt(_netMember.Position);
 
         DeleteGhosts();
         UnSubscribeAll();

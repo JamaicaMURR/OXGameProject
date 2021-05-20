@@ -30,9 +30,9 @@ public class SpawnerArranger : MonoBehaviour
         GameObject newbie = Instantiate(spawnerPrefab);
 
         newbie.GetComponent<Transform>().Rotate(0, 0, 90 * random.Next(0, 4));
-        newbie.GetComponent<NetMember>().NetPosition = position;
+        newbie.GetComponent<NetMember>().Position = position;
         newbie.GetComponent<Spawner>().spawnDirection = direction;
 
-        spLord.Register(newbie);
+        //spLord.Register(newbie);
     }
 }
