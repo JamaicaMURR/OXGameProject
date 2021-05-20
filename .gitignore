@@ -364,3 +364,9 @@ FodyWeavers.xsd
 
 # Unity temporary
 Temp/
+
+# Library
+Library/PackageCache
+Library/ShaderCache
+Library/StateCache
+Library/PackageManager
