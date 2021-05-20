@@ -15,6 +15,7 @@ public class OBehavior : MonoBehaviour
     Ghost _ghost;
     ControlledGhost _forvardGhost;
     Colorator _colorator;
+    SuitChanger _suitChanger;
 
     public Direction movingDirection;
     public Color orange;
@@ -22,6 +23,8 @@ public class OBehavior : MonoBehaviour
 
     public Sprite backwardGhostSprite;
     public Sprite mergingGhostSprite;
+
+    public SpriteAnimator mergingAnimator;
 
     public float speed = 1;
 
@@ -47,6 +50,7 @@ public class OBehavior : MonoBehaviour
         _ghost = GetComponent<Ghost>();
         _forvardGhost = GetComponent<ControlledGhost>();
         _colorator = GetComponent<Colorator>();
+        _suitChanger = GetComponent<SuitChanger>();
 
         if(_mover == null)
             throw new Exception("Can't find JustMover component");
@@ -63,10 +67,13 @@ public class OBehavior : MonoBehaviour
         if(_colorator == null)
             throw new Exception("Can't find Colorator component");
 
+        if(_suitChanger == null)
+            throw new Exception("Can't find SuitChanger component");
+
         //
         _mover.OnMovingFinish += Arrive;
 
-        DoOnUpdate = SpawnGhosts;
+        DoOnUpdate = LookAround;
     }
 
     void Start()
@@ -75,6 +82,14 @@ public class OBehavior : MonoBehaviour
 
         _central.inputHandler.OnPause += PaintSelf;
         _central.inputHandler.OnUnPause += UnPaintSelf;
+
+        _suitChanger.ChangeSuit(); // Random sprite shanges by suitChanger
+
+        _ghost.Spawn();
+        _ghost.SetSprite(backwardGhostSprite);
+
+        _forvardGhost.Spawn();
+        _forvardGhost.CloneSprite();
     }
 
     void Update()
@@ -102,8 +117,10 @@ public class OBehavior : MonoBehaviour
 
     public void DieAtMerging()
     {
+        mergingAnimator.Animate();
+
         UnSubscribeAll();
-        Destroy(gameObject);
+        Destroy(gameObject, mergingAnimator.animationTime);
     }
     //======================================================================================================================================
     void LookAround()
@@ -261,17 +278,6 @@ public class OBehavior : MonoBehaviour
         DeleteGhosts();
         UnSubscribeAll();
         Destroy(gameObject);
-    }
-
-    void SpawnGhosts()
-    {
-        _ghost.Spawn();
-        _ghost.SetSprite(backwardGhostSprite);
-
-        _forvardGhost.Spawn();
-        _forvardGhost.CloneSprite();
-
-        DoOnUpdate = LookAround;
     }
 
     void DeleteGhosts()

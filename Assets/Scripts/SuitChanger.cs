@@ -10,14 +10,16 @@ public class SuitChanger : MonoBehaviour
 
     public Sprite[] suits;
 
-    public bool randomChangeAtStart = true;
-    public bool randomFlipWhenChange = true;
+    public bool changeAtStart = false;
+    public bool randomFlipWhenChange = false;
 
     [HideInInspector]
     public int lastSuitNumber = -1;
 
     [HideInInspector]
     public bool xWasFliped, yWasFliped; // Indicates of fliiping of last suit
+
+    public int SuitNumber { get { return lastSuitNumber; } set { lastSuitNumber = value; } }
 
     void Awake()
     {
@@ -30,9 +32,9 @@ public class SuitChanger : MonoBehaviour
             throw new System.Exception("No suits");
     }
 
-    void Start()
+    private void Start()
     {
-        if(randomChangeAtStart)
+        if(changeAtStart)
             ChangeSuit();
     }
 
