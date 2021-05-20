@@ -3,8 +3,12 @@ using System.Collections;
 
 public class Ghost : MonoBehaviour
 {
-    public GameObject ghostPrefab;
+    [HideInInspector]
     public GameObject ghost;
+
+    public GameObject ghostPrefab;
+
+    public float transparency = 0.125f;
 
     protected Transform ghostTransform;
 
@@ -25,6 +29,11 @@ public class Ghost : MonoBehaviour
         ghost = Instantiate(ghostPrefab);
         ghostTransform = ghost.GetComponent<Transform>();
 
+        Pull();
+    }
+
+    public void CloneSprite()
+    {
         SpriteRenderer ghostSpriteRenderer = ghost.GetComponent<SpriteRenderer>();
         SpriteRenderer originalSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -32,6 +41,14 @@ public class Ghost : MonoBehaviour
         ghostSpriteRenderer.flipX = originalSpriteRenderer.flipX;
         ghostSpriteRenderer.flipY = originalSpriteRenderer.flipY;
 
-        Pull();
+        ghostSpriteRenderer.color = new Color(ghostSpriteRenderer.color.r, ghostSpriteRenderer.color.g, ghostSpriteRenderer.color.b, transparency);
+    }
+
+    public void SetSprite(Sprite sprite)
+    {
+        SpriteRenderer ghostSpriteRenderer = ghost.GetComponent<SpriteRenderer>();
+
+        ghostSpriteRenderer.sprite = sprite;
+        ghostSpriteRenderer.color = new Color(ghostSpriteRenderer.color.r, ghostSpriteRenderer.color.g, ghostSpriteRenderer.color.b, transparency);
     }
 }

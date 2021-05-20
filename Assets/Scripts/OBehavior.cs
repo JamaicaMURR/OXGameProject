@@ -19,6 +19,10 @@ public class OBehavior : MonoBehaviour
     public Direction movingDirection;
     public Color orange;
     public Color orangeOnPause;
+
+    public Sprite backwardGhostSprite;
+    public Sprite mergingGhostSprite;
+
     public float speed = 1;
 
     NetPosition _targetPosition;
@@ -62,7 +66,7 @@ public class OBehavior : MonoBehaviour
         //
         _mover.OnMovingFinish += Arrive;
 
-        DoOnUpdate = LookAround;
+        DoOnUpdate = SpawnGhosts;
     }
 
     void Start()
@@ -122,6 +126,8 @@ public class OBehavior : MonoBehaviour
         {
             SetNextDestination();
             ClaimdDestination(CellState.Merging);
+
+            _forvardGhost.SetSprite(mergingGhostSprite);
 
             DoOnUpdate = Moving;
         }
@@ -255,6 +261,17 @@ public class OBehavior : MonoBehaviour
         DeleteGhosts();
         UnSubscribeAll();
         Destroy(gameObject);
+    }
+
+    void SpawnGhosts()
+    {
+        _ghost.Spawn();
+        _ghost.SetSprite(backwardGhostSprite);
+
+        _forvardGhost.Spawn();
+        _forvardGhost.CloneSprite();
+
+        DoOnUpdate = LookAround;
     }
 
     void DeleteGhosts()
