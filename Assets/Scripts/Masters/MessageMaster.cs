@@ -42,7 +42,7 @@ public class MessageMaster : MonoBehaviour
                     ShowMessage("Aweesome!" + text, attention);
                 else if(i > 4)
                     ShowMessage("Nice!" + text, attention);
-                else
+                else if(i > 2)
                     ShowMessage(text, regular);
             }
         };
