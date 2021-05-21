@@ -13,11 +13,18 @@ public class HeartsMaster : MonoBehaviour
         get { return _units; }
         set
         {
-            _units = value.ExNotBelow(0, "Hearts value").NotAbove(unitImages.Length);
-
-            if(_units == 0)
+            if(value <= 0)
+            {
                 if(OnZeroUnits != null)
                     OnZeroUnits();
+            }
+            else if(value < _units)
+            {
+                if(OnUnitLost != null)
+                    OnUnitLost();
+            }
+
+            _units = value.ExNotBelow(0, "Hearts value").NotAbove(unitImages.Length);
 
             HighlightUnits(_units);
         }
@@ -28,6 +35,7 @@ public class HeartsMaster : MonoBehaviour
     public Image[] unitImages;
 
     public event Action OnZeroUnits;
+    public event Action OnUnitLost;
 
     //============================================================================================================================================================================
     void Start()

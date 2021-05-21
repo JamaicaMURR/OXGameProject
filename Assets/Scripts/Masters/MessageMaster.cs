@@ -1,48 +1,81 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class MessageMaster : MonoBehaviour
 {
+    float _timer;
+
+    Queue<string> messagesQueue;
+
     public CentralPort central;
     public Text textField;
 
-    string currentMessage;
+    public Font regularFont;
+    public Font boldFont;
+
+    public Color warning;
+    public Color attention;
+    public Color regular;
+
+    public float messageTime = 1;
 
     void Awake()
     {
-        central.inputHandler.OnPause += PauseMessage;
+        central.inputHandler.OnPause += delegate () { ShowMessage("Pause", regular); };
         central.inputHandler.OnUnPause += SetClean;
-        central.inputHandler.OnPauserUsing += PauserUsedMessage;
-        central.inputHandler.OnLock += LockUsedMessage;
+        central.inputHandler.OnPauserUsing += delegate () { ShowMessage("On light speed!", attention); };
+        central.inputHandler.OnLock += delegate () { ShowMessage("Game over!", warning, bold: true); };
+
+        central.heartsMaster.OnUnitLost += delegate () { ShowMessage("Life lost!", warning, bold: true); };
+
+        central.mergeMaster.AtMerged += delegate (int i)
+        {
+            if(i > 1)
+            {
+                string text = i + " merged!";
+
+                if(i > 8)
+                    ShowMessage("Unbelievable! " + text, attention);
+                else if(i > 6)
+                    ShowMessage("Aweesome!" + text, attention);
+                else if(i > 4)
+                    ShowMessage("Nice!" + text, attention);
+                else
+                    ShowMessage(text, regular);
+            }
+        };
     }
 
-
-
-    void Update()
+    private void Update()
     {
+        _timer += Time.deltaTime;
 
+        if(_timer >= messageTime)
+            SetClean();
+    }
+
+    void ShowMessage(string message, Color color)
+    {
+        ShowMessage(message, color, false);
+    }
+
+    void ShowMessage(string message, Color color, bool bold)
+    {
+        if(bold)
+            textField.font = boldFont;
+        else
+            textField.font = regularFont;
+
+        textField.color = color;
+        textField.text = message;
+        _timer = 0;
     }
 
     void SetClean()
     {
         textField.text = "";
-    }
-
-    void PauseMessage()
-    {
-        string message = "Pause";
-
-        textField.text = message;
-    }
-
-    void PauserUsedMessage()
-    {
-        textField.text = "Pauser used";
-    }
-
-    void LockUsedMessage()
-    {
-        textField.text = "Game Over";
+        _timer = 0;
     }
 }
