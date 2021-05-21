@@ -22,6 +22,7 @@ public class FieldInputHandler : MonoBehaviour
 
     void Awake()
     {
+        xBehavior.OnSuccefulMove += CheckOnXMoving;
         Check = Idle;
     }
 
@@ -64,28 +65,16 @@ public class FieldInputHandler : MonoBehaviour
             if(!isPaused || isPauserUsed || port.pausersMaster.Units > 0)
             {
                 if(Input.GetButtonDown("Up"))
-                {
                     xBehavior.TryToMove(Direction.Up);
-                    Check();
-                }
 
                 if(Input.GetButtonDown("Down"))
-                {
                     xBehavior.TryToMove(Direction.Down);
-                    Check();
-                }
 
                 if(Input.GetButtonDown("Left"))
-                {
                     xBehavior.TryToMove(Direction.Left);
-                    Check();
-                }
 
                 if(Input.GetButtonDown("Right"))
-                {
                     xBehavior.TryToMove(Direction.Right);
-                    Check();
-                }
             }
         }
     }
@@ -118,6 +107,11 @@ public class FieldInputHandler : MonoBehaviour
     }
 
     //============================================================================================================================================================================
+    void CheckOnXMoving()
+    {
+        Check();
+    }
+    
     void CheckPauser()
     {
         if(isPaused && !isPauserUsed)

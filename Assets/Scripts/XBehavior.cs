@@ -5,10 +5,12 @@ using Bycicles.Ranges;
 
 public class XBehavior : MonoBehaviour
 {
-    public CentralPort central;
-
     NetMember _netMember;
     Colorator _colorator;
+
+    public CentralPort central;
+
+    public event Action OnSuccefulMove;
 
     //============================================================================================================================================================================
     void Start()
@@ -42,6 +44,9 @@ public class XBehavior : MonoBehaviour
             _netMember.SetDefaultCellState();
             _netMember.JumpAt(direction);
             _netMember.SetCellState(CellState.X);
+
+            if(OnSuccefulMove != null)
+                OnSuccefulMove();
         }
     }
 
