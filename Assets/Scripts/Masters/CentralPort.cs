@@ -10,4 +10,6 @@ public class CentralPort : MonoBehaviour
     public SpawnMaster spawnMaster;
     public PointsMaster pointsMaster;
     public FieldInputHandler inputHandler;
+    public DifficultyMaster difficultyMaster;
+    public MessageMaster messageMaster;
 }

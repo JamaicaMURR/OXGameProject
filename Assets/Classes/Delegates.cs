@@ -4,4 +4,4 @@ using System.Linq;
 using System.Text;
 
 
-public delegate void EventWithInt(int value);
+public delegate void IntEvent(int value);

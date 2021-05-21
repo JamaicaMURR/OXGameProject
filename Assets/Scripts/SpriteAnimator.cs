@@ -19,12 +19,12 @@ public class SpriteAnimator : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        _frameDelay = animationTime / frames.Length;
     }
 
     public void StartAnimation()
     {
+        _frameDelay = animationTime / frames.Length;
+
         StartCoroutine("Animation");
     }
 

@@ -7,34 +7,45 @@ public class MergeMaster : MonoBehaviour
 {
     public CentralPort central;
 
-    List<GameObject> _oranges;
-    List<NetPosition> _positions;
+    public event IntEvent AtMerged;
 
+    public int OrangesCount { get { return _oranges.Count; } }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    List<OBehavior> _oranges;
+    List<NetPosition> _positions; // Oranges and their positions stores separately for more redable code (and optimisation)
+
+    //==================================================================================================================================================================
     void Awake()
     {
-        _oranges = new List<GameObject>();
+        _oranges = new List<OBehavior>();
         _positions = new List<NetPosition>();
     }
 
+    //==================================================================================================================================================================
     public void RegisterOrange(GameObject obj)
     {
-        _oranges.Add(obj);
-
-        NetMember member = obj.GetComponent<NetMember>();
-
-        if(member != null)
-            _positions.Add(member.Position);
-        else
-            throw new System.Exception("Given GameObject has no OXNetMember component");
+        _oranges.Add(obj.GetComponent<OBehavior>());
+        _positions.Add(obj.GetComponent<NetMember>().Position);
     }
 
-    public void MergeAt(NetPosition position, ref int succesCounter)
+    public void MergeAt(NetPosition position)
+    {
+        int totalMerged = 0;
+
+        MergeAt(position, ref totalMerged);
+
+        if(AtMerged != null)
+            AtMerged(totalMerged);
+    }
+
+    void MergeAt(NetPosition position, ref int succesCounter)
     {
         int mergingIndex = FindIndex(position);
 
         central.netMaster.SetDefaultState(position);
 
-        _oranges[mergingIndex].GetComponent<OBehavior>().DieAtMerging();
+        _oranges[mergingIndex].DieAtMerging();
 
         _oranges.RemoveAt(mergingIndex);
         _positions.RemoveAt(mergingIndex);
@@ -45,15 +56,6 @@ public class MergeMaster : MonoBehaviour
         FindAndMerge(position, Direction.Down, ref succesCounter);
         FindAndMerge(position, Direction.Left, ref succesCounter);
         FindAndMerge(position, Direction.Right, ref succesCounter);
-    }
-
-    public void MergeAt(NetPosition position)
-    {
-        int totalMerged = 0;
-
-        MergeAt(position, ref totalMerged);
-
-        central.pointsMaster.Reward(totalMerged);
     }
 
     void FindAndMerge(NetPosition position, Direction direction, ref int succesCounter)

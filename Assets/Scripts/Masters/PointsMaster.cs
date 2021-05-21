@@ -21,13 +21,16 @@ public class PointsMaster : MonoBehaviour
     public float cypherRefreshPeriod = 0.1f;
 
     public event Action OnReward;
-    public event EventWithInt OnPausersReward;
-    public event EventWithInt OnHeartsReward;
+    public event IntEvent OnPausersReward;
+    public event IntEvent OnHeartsReward;
 
+    //==================================================================================================================================================================
     void Awake()
     {
         central.inputHandler.OnEscape += RememberRecord;
+        central.inputHandler.OnPause += RememberRecord;
         central.heartsMaster.OnZeroUnits += RememberRecord;
+        central.mergeMaster.AtMerged += Reward;
     }
 
     void Update()
@@ -45,7 +48,8 @@ public class PointsMaster : MonoBehaviour
         }
     }
 
-    public void Reward(int totalMerged)
+    //==================================================================================================================================================================
+    void Reward(int totalMerged)
     {
         if(OnReward != null)
             OnReward();
@@ -79,7 +83,7 @@ public class PointsMaster : MonoBehaviour
         }
     }
 
-    public void RememberRecord()
+    void RememberRecord()
     {
         int oldRec = PlayerPrefs.GetInt("record");
 

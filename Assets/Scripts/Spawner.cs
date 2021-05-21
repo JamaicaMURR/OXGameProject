@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Bycicles.Ranges;
 
 public class Spawner : MonoBehaviour
 {
     NetMember _netMember;
     GameObject _newbie;
 
+    public CentralPort central;
+
     public GameObject spawnPrefab;
     public Direction spawnDirection;
 
     public SpriteAnimator foldingScreenAnimator;
 
-    public float prespawningTime = 0.5f;
+    public float maximalPrespawnTime = 0.5f;
 
     [HideInInspector]
     public bool isSpawning = false;
@@ -24,7 +27,6 @@ public class Spawner : MonoBehaviour
         if(_netMember == null)
             throw new Exception("Can't find OXNetMember component");
 
-        foldingScreenAnimator.animationTime = prespawningTime;
         foldingScreenAnimator.OnAnimationEnd += Release;
     }
 
@@ -42,6 +44,7 @@ public class Spawner : MonoBehaviour
             _newbie.GetComponent<NetMember>().Position = _netMember.Position;
             _newbie.GetComponent<OBehavior>().movingDirection = spawnDirection;
 
+            foldingScreenAnimator.animationTime = (central.difficultyMaster.SpawnPeriod * 0.9f).NotAbove(maximalPrespawnTime);
             foldingScreenAnimator.StartAnimation();
 
             isSpawning = true;

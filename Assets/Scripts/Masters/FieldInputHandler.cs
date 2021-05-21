@@ -109,7 +109,7 @@ public class FieldInputHandler : MonoBehaviour
     //============================================================================================================================================================================
     void CheckOnXMoving()
     {
-        Check();
+        Check(); // If isPauserUsed || !isPaused is will be == Idle, otherwise: == CheckPauser 
     }
     
     void CheckPauser()

@@ -7,42 +7,33 @@ public class SpawnMaster : MonoBehaviour
 {
     static System.Random random = new System.Random();
 
-    public float spawnPeriod = 1;
-
     float _timer = 0;
+
+    public CentralPort central;
 
     public Spawner[] spawners;
 
-    List<Spawner> _availableSpawners;
-
     void Awake()
     {
-        _availableSpawners = new List<Spawner>(spawners);
-
-        _timer = spawnPeriod;
+        _timer = central.difficultyMaster.SpawnPeriod; // For imidiate first spawn
     }
 
     void Update()
     {
         _timer += Time.deltaTime;
 
-        if(_timer >= spawnPeriod)            
+        if(_timer >= central.difficultyMaster.SpawnPeriod)
             Spawn();
     }
 
     void Spawn()
     {
-        if(_availableSpawners.Count == 0)
-            _availableSpawners = new List<Spawner>(spawners);
+        int chosenIndex = random.Next(0, spawners.Length);
 
-        int chosenIndex = random.Next(0, _availableSpawners.Count);
-
-        if(_availableSpawners[chosenIndex].IsReadyToSpawn())
+        if(spawners[chosenIndex].IsReadyToSpawn())
         {
-            _availableSpawners[chosenIndex].Spawn();
-            _timer -= spawnPeriod;
+            spawners[chosenIndex].Spawn();
+            _timer -= central.difficultyMaster.SpawnPeriod;
         }
-
-        _availableSpawners.RemoveAt(chosenIndex);
     }
 }
