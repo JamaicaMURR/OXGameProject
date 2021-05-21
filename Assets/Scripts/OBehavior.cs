@@ -27,6 +27,8 @@ public class OBehavior : MonoBehaviour
 
     public SpriteAnimator mergingAnimator;
 
+    public GameObject finishAnimationHolder;
+
     public float Exponent
     {
         get
@@ -263,6 +265,8 @@ public class OBehavior : MonoBehaviour
         transform.Translate(new Vector3(0, 0, 0.25f)); // Positionate object more far then others
 
         DoOnUpdate = OrangeKemping;
+
+        Destroy(finishAnimationHolder);
     }
 
     void Merge()
@@ -290,7 +294,16 @@ public class OBehavior : MonoBehaviour
 
         DeleteGhosts();
         UnSubscribeAll();
-        Destroy(gameObject);
+
+        DoOnUpdate = Wait;
+
+        gameObject.GetComponent<SpriteRenderer>().enabled = false; // Hide O when finish animation playing
+
+        SpriteAnimator finishAnimator = finishAnimationHolder.GetComponent<SpriteAnimator>();
+
+        finishAnimator.OnAnimationEnd += delegate () { Destroy(gameObject); };
+        finishAnimator.StartAnimation();
+        mergingAnimator.StartAnimation();
     }
 
     void DeleteGhosts()

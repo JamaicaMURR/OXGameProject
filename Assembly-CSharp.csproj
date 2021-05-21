@@ -57,16 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Classes\Direction.cs" />
-    <Compile Include="Assets\Classes\CellState.cs" />
     <Compile Include="Assets\Scripts\JustMover.cs" />
     <Compile Include="Assets\Classes\Delegates.cs" />
     <Compile Include="Assets\Scripts\Ghost.cs" />
     <Compile Include="Assets\Scripts\Masters\ButtonsHandler.cs" />
     <Compile Include="Assets\Scripts\Masters\MergeMaster.cs" />
     <Compile Include="Assets\Scripts\SuitOrangator.cs" />
-    <Compile Include="Assets\Scripts\OBehavior.cs" />
-    <Compile Include="Assets\Scripts\Masters\SpawnMaster.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\RecordKeeper.cs" />
     <Compile Include="Assets\Scripts\Masters\NetMaster.cs" />
     <Compile Include="Assets\Scripts\Masters\SpawnerArranger.cs" />
@@ -74,19 +70,23 @@
     <Compile Include="Assets\Scripts\SpriteSwaper.cs" />
     <Compile Include="Assets\Scripts\Masters\MessageMaster.cs" />
     <Compile Include="Assets\Scripts\SuitChanger.cs" />
-    <Compile Include="Assets\Scripts\Masters\HeartsMaster.cs" />
     <Compile Include="Assets\Scripts\ControlledGhost.cs" />
-    <Compile Include="Assets\Scripts\SpriteAnimator.cs" />
     <Compile Include="Assets\Scripts\XBehavior.cs" />
-    <Compile Include="Assets\Scripts\Masters\FieldInputHandler.cs" />
     <Compile Include="Assets\Classes\NetPosition.cs" />
-    <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
     <Compile Include="Assets\Scripts\Colorator.cs" />
     <Compile Include="Assets\Scripts\Masters\CellsArranger.cs" />
     <Compile Include="Assets\Scripts\NetMember.cs" />
     <Compile Include="Assets\Scripts\Masters\PointsMaster.cs" />
-    <Compile Include="Assets\Classes\Cell.cs" />
+    <Compile Include="Assets\Classes\CellState.cs" />
+    <Compile Include="Assets\Scripts\OBehavior.cs" />
+    <Compile Include="Assets\Scripts\Masters\SpawnMaster.cs" />
+    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Masters\DifficultyMaster.cs" />
+    <Compile Include="Assets\Scripts\Masters\HeartsMaster.cs" />
+    <Compile Include="Assets\Scripts\SpriteAnimator.cs" />
+    <Compile Include="Assets\Scripts\Masters\FieldInputHandler.cs" />
+    <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
+    <Compile Include="Assets\Classes\Cell.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Libs\Bycicles.dll" />
@@ -311,6 +311,9 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\Program_Files\2020.3.8f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>Library\PackageCache\com.unity.connect.share@4.2.2\Plugins\System.IO.Compression.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="Bycicles">
       <HintPath>Assets\Libs\Bycicles.dll</HintPath>
@@ -660,6 +663,12 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\Program_Files\2020.3.8f1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridgeDev.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridgeDev.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -678,6 +687,21 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Path.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
@@ -687,8 +711,23 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Play.Publisher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Play.Publisher.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

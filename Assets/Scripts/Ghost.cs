@@ -50,5 +50,7 @@ public class Ghost : MonoBehaviour
 
         ghostSpriteRenderer.sprite = sprite;
         ghostSpriteRenderer.color = new Color(ghostSpriteRenderer.color.r, ghostSpriteRenderer.color.g, ghostSpriteRenderer.color.b, transparency);
+        ghostSpriteRenderer.flipX = false;
+        ghostSpriteRenderer.flipY = false;
     }
 }
