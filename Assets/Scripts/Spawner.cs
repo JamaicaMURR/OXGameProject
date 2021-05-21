@@ -17,6 +17,8 @@ public class Spawner : MonoBehaviour
 
     public float maximalPrespawnTime = 0.5f;
 
+    public event Action OnRelease;
+
     [HideInInspector]
     public bool isSpawning = false;
 
@@ -56,5 +58,8 @@ public class Spawner : MonoBehaviour
         _newbie.GetComponent<OBehavior>().enabled = true;
 
         isSpawning = false; // To early, because SpawnMaster can order to spawn before newbie O start moving, however, on big spawn periods, this issue is not exists.
+
+        if(OnRelease != null)
+            OnRelease();
     }
 }

@@ -8,6 +8,7 @@ public class MergeMaster : MonoBehaviour
     public CentralPort central;
 
     public event IntEvent AtMerged;
+    public event Action OnOrangeRegister;
 
     public int OrangesCount { get { return _oranges.Count; } }
 
@@ -27,6 +28,9 @@ public class MergeMaster : MonoBehaviour
     {
         _oranges.Add(obj.GetComponent<OBehavior>());
         _positions.Add(obj.GetComponent<NetMember>().Position);
+
+        if(OnOrangeRegister != null)
+            OnOrangeRegister();
     }
 
     public void MergeAt(NetPosition position)

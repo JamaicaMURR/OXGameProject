@@ -260,7 +260,7 @@ public class OBehavior : MonoBehaviour
 
         DeleteGhosts();
 
-        transform.Translate(new Vector3(0, 0, 0.25f)); // positionate object more far then others
+        transform.Translate(new Vector3(0, 0, 0.25f)); // Positionate object more far then others
 
         DoOnUpdate = OrangeKemping;
     }

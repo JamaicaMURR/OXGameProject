@@ -15,6 +15,10 @@ public class DifficultyMaster : MonoBehaviour
     public float initialAverSpawnPeriod = 2;
     public float minimalAverSpawnPeriod = 0.5f;
     public float decreasingSpawnPeriodStep = 0.05f;
+    public float lowSpawnPeriodFluctuationLimit = 0.25f;
+    public float highSpawnPeriodFluctuationLimit = 0.25f;
+
+    public int maximalSpawnPeriodAtWhitesCount = 5;
 
     public float oDefaultSpeed = 0.75f;
     public float oOnDarkCellSpeed = 2;
@@ -38,6 +42,7 @@ public class DifficultyMaster : MonoBehaviour
 
     float CalculateSpawnPeriod()
     {
-        return AverSpawnPeriod;
+        float whitesDensity = (float)central.spawnMaster.WhitesOnField.NotAbove(maximalSpawnPeriodAtWhitesCount) / maximalSpawnPeriodAtWhitesCount;
+        return (AverSpawnPeriod - lowSpawnPeriodFluctuationLimit).NotBelow(0) + (lowSpawnPeriodFluctuationLimit + highSpawnPeriodFluctuationLimit) * whitesDensity;
     }
 }
