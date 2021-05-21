@@ -7,6 +7,7 @@ public class OBehavior : MonoBehaviour
 {
     int _stepsMoved;
     float _fixedZ;
+    float _speed;
 
     CentralPort _central;
 
@@ -26,14 +27,28 @@ public class OBehavior : MonoBehaviour
 
     public SpriteAnimator mergingAnimator;
 
-    public float speed = 1;
+    public float Exponent
+    {
+        get
+        {
+            float exponent = 0;
 
+            if(movingDirection == Direction.Up || movingDirection == Direction.Down)
+                exponent = _stepsMoved / (float)_central.netMaster.netHeight;
+            else
+                exponent = _stepsMoved / (float)_central.netMaster.netWidth;
+
+            return exponent;
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------
     NetPosition _targetPosition;
     Vector3 _targetFieldPosition;
 
     Action DoOnUpdate;
 
-    //======================================================================================================================================
+    //==================================================================================================================================================================
     void Awake()
     {
         //
@@ -96,17 +111,6 @@ public class OBehavior : MonoBehaviour
     }
 
     //======================================================================================================================================
-    public void PaintSelf()
-    {
-        float exponent = 0;
-
-        if(movingDirection == Direction.Up || movingDirection == Direction.Down)
-            exponent = _stepsMoved / (float)_central.netMaster.netHeight;
-        else
-            exponent = _stepsMoved / (float)_central.netMaster.netWidth;
-
-        _colorator.Paint(exponent);
-    }
 
     public void UnPaintSelf()
     {
@@ -135,6 +139,8 @@ public class OBehavior : MonoBehaviour
             SetNextDestination();
             ClaimdDestination(CellState.WhiteO);
 
+            _speed = _central.difficultyMaster.oDefaultSpeed;
+
             DoOnUpdate = Moving;
         }
         else if(targetCS == CellState.OrangeO)
@@ -143,6 +149,7 @@ public class OBehavior : MonoBehaviour
             ClaimdDestination(CellState.Merging);
 
             _forvardGhost.SetSprite(mergingGhostSprite);
+            _speed = _central.difficultyMaster.oMergeDashSpeed;
 
             DoOnUpdate = Moving;
         }
@@ -154,6 +161,8 @@ public class OBehavior : MonoBehaviour
             {
                 SetNextDestination();
                 ClaimdDestination(CellState.DarkWithO);
+
+                _speed = _central.difficultyMaster.oOnDarkCellSpeed;
 
                 DoOnUpdate = Moving;
             }
@@ -178,6 +187,8 @@ public class OBehavior : MonoBehaviour
             {
                 SetNextDestination();
 
+                _speed = _central.difficultyMaster.oOnDarkCellSpeed;
+
                 DoOnUpdate = Moving;
             }
             else
@@ -198,7 +209,7 @@ public class OBehavior : MonoBehaviour
 
     void Moving()
     {
-        _mover.Move(_targetFieldPosition, speed * Time.deltaTime);
+        _mover.Move(_targetFieldPosition, _speed * Time.deltaTime);
     }
 
     void OrangeKemping()
@@ -261,6 +272,10 @@ public class OBehavior : MonoBehaviour
         DeleteGhosts();
         UnSubscribeAll();
         Destroy(gameObject);
+    }
+    void PaintSelf()
+    {
+        _colorator.Paint(Exponent);
     }
 
     void Wait()

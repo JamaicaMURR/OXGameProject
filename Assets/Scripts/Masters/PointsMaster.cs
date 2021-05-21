@@ -20,7 +20,7 @@ public class PointsMaster : MonoBehaviour
 
     public float cypherRefreshPeriod = 0.1f;
 
-    public event Action OnReward;
+    public event IntEvent OnReward;
     public event IntEvent OnPausersReward;
     public event IntEvent OnHeartsReward;
 
@@ -51,9 +51,6 @@ public class PointsMaster : MonoBehaviour
     //==================================================================================================================================================================
     void Reward(int totalMerged)
     {
-        if(OnReward != null)
-            OnReward();
-
         int mergesToReward = totalMerged - 1; // no reward for 1 merged O
 
         if(mergesToReward > 0)
@@ -78,6 +75,9 @@ public class PointsMaster : MonoBehaviour
 
                 central.heartsMaster.Units += heartsReward;
             }
+
+            if(OnReward != null)
+                OnReward(rewardPoints);
 
             _points += rewardPoints;
         }

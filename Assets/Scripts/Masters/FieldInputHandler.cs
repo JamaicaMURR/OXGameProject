@@ -11,7 +11,8 @@ public class FieldInputHandler : MonoBehaviour
 
     Action Check;
 
-    public CentralPort port;
+    public CentralPort central;
+
     public XBehavior xBehavior;
 
     public event Action OnPause;
@@ -20,9 +21,12 @@ public class FieldInputHandler : MonoBehaviour
     public event Action OnLock;
     public event Action OnEscape;
 
+    //==================================================================================================================================================================
     void Awake()
     {
+        central.heartsMaster.OnZeroUnits += LockGame;
         xBehavior.OnSuccefulMove += CheckOnXMoving;
+
         Check = Idle;
     }
 
@@ -62,7 +66,7 @@ public class FieldInputHandler : MonoBehaviour
                 }
             }
 
-            if(!isPaused || isPauserUsed || port.pausersMaster.Units > 0)
+            if(!isPaused || isPauserUsed || central.pausersMaster.Units > 0)
             {
                 if(Input.GetButtonDown("Up"))
                     xBehavior.TryToMove(Direction.Up);
@@ -111,12 +115,12 @@ public class FieldInputHandler : MonoBehaviour
     {
         Check(); // If isPauserUsed || !isPaused is will be == Idle, otherwise: == CheckPauser 
     }
-    
+
     void CheckPauser()
     {
         if(isPaused && !isPauserUsed)
         {
-            port.pausersMaster.Units--;
+            central.pausersMaster.Units--;
             isPauserUsed = true;
             Check = Idle;
 
