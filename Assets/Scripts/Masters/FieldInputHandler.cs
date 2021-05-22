@@ -19,6 +19,7 @@ public class FieldInputHandler : MonoBehaviour
     public event Action OnUnPause;
     public event Action OnPauserUsing;
     public event Action OnLock;
+    public event Action OnUnlock;
     public event Action OnEscape;
 
     //==================================================================================================================================================================
@@ -91,6 +92,15 @@ public class FieldInputHandler : MonoBehaviour
 
         if(OnLock != null)
             OnLock();
+    }
+
+    public void UnlockGame()
+    {
+        Time.timeScale = 1;
+        isLocked = false;
+
+        if(OnUnlock != null)
+            OnUnlock();
     }
 
     public void Retry()
