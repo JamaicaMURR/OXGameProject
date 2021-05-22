@@ -45,14 +45,12 @@ public class Fader : MonoBehaviour
 
     public void StartFadeIn()
     {
-        if(IsReady())
-            DoOnUpdate = FadeIn;
+        DoOnUpdate = FadeIn;
     }
 
     public void StartFadeOut()
     {
-        if(IsReady())
-            DoOnUpdate = FadeOut;
+        DoOnUpdate = FadeOut;
     }
 
     //==================================================================================================================================================================

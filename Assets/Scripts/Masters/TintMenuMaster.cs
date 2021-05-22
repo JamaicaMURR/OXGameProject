@@ -15,6 +15,7 @@ public class TintMenuMaster : MonoBehaviour
     private void Awake()
     {
         central.inputHandler.OnLock += FadeIn;
+        central.inputHandler.OnUnlock += FadeOut;
 
         tintFader.OnFadeInEnd += delegate () { buttons.SetActive(true); };
     }
@@ -27,6 +28,7 @@ public class TintMenuMaster : MonoBehaviour
 
     public void FadeOut()
     {
-        //FIXME
+        buttons.SetActive(false);
+        tintFader.StartFadeOut();
     }
 }

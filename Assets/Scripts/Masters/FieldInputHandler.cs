@@ -39,6 +39,9 @@ public class FieldInputHandler : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.L)) //<--------------------------------------------------! test only
             LockGame();
 
+        if(Input.GetKeyDown(KeyCode.U)) //<--------------------------------------------------! test only
+            UnlockGame();
+
         if(Input.GetButtonDown("EscapeToMenu"))
             EscapeToMenu();
 
