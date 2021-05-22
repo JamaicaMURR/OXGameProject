@@ -87,6 +87,9 @@
     <Compile Include="Assets\Scripts\Masters\FieldInputHandler.cs" />
     <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
     <Compile Include="Assets\Classes\Cell.cs" />
+    <Compile Include="Assets\Scripts\Masters\TintMenuMaster.cs" />
+    <Compile Include="Assets\Scripts\Masters\IndependentClocks.cs" />
+    <Compile Include="Assets\Scripts\Fader.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Libs\Bycicles.dll" />

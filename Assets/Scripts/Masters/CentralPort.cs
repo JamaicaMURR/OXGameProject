@@ -12,4 +12,5 @@ public class CentralPort : MonoBehaviour
     public FieldInputHandler inputHandler;
     public DifficultyMaster difficultyMaster;
     public MessageMaster messageMaster;
+    public IndependentClocks independentClocks;
 }
