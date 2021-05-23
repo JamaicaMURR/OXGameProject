@@ -26,9 +26,9 @@ public class MessageMaster : MonoBehaviour
         central.inputHandler.OnPause += delegate () { ShowMessage("Pause", regular); };
         central.inputHandler.OnUnPause += SetClean;
         central.inputHandler.OnPauserUsing += delegate () { ShowMessage("On light speed!", attention); };
-        central.inputHandler.OnLock += delegate () { ShowMessage("Game Over", warning, bold: true); };
 
-        central.heartsMaster.OnUnitLost += delegate () { ShowMessage("Life lost!", warning, bold: true); };
+        central.heartsMaster.OnUnitLost += delegate () { ShowMessage("Life lost!", warning); };
+        central.heartsMaster.OnZeroUnits += delegate () { ShowMessage("Game Over", warning); };
 
         central.mergeMaster.AtMerged += delegate (int i)
         {

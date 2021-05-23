@@ -33,20 +33,11 @@ public class FieldInputHandler : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R)) //<--------------------------------------------------! test only
-            Retry();
-
-        if(Input.GetKeyDown(KeyCode.L)) //<--------------------------------------------------! test only
-            LockGame();
-
-        if(Input.GetKeyDown(KeyCode.U)) //<--------------------------------------------------! test only
-            UnlockGame();
-
-        if(Input.GetButtonDown("EscapeToMenu"))
-            EscapeToMenu();
-
         if(!isLocked)
         {
+            if(Input.GetButtonDown("EscapeToMenu"))
+                LockGame();
+
             if(Input.GetButtonDown("Pause"))
             {
                 isPaused = !isPaused;
@@ -85,25 +76,41 @@ public class FieldInputHandler : MonoBehaviour
                     xBehavior.TryToMove(Direction.Right);
             }
         }
+        else
+        {
+            if(Input.GetButtonDown("EscapeToMenu") && !central.heartsMaster.isNoUnits)
+                UnlockGame();
+
+            if(Input.GetKeyDown(KeyCode.R))
+                Retry();
+        }
     }
 
     //============================================================================================================================================================================
     public void LockGame()
     {
-        Time.timeScale = 0;
-        isLocked = true;
+        if(!isLocked)
+        {
+            Time.timeScale = 0;
+            isLocked = true;
 
-        if(OnLock != null)
-            OnLock();
+            if(OnLock != null)
+                OnLock();
+        }
     }
 
     public void UnlockGame()
     {
-        Time.timeScale = 1;
-        isLocked = false;
+        if(isLocked)
+        {
+            if(!isPaused)
+                Time.timeScale = 1;
 
-        if(OnUnlock != null)
-            OnUnlock();
+            isLocked = false;
+
+            if(OnUnlock != null)
+                OnUnlock();
+        }
     }
 
     public void Retry()

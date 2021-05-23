@@ -8,6 +8,8 @@ public class HeartsMaster : MonoBehaviour
 {
     int _units;
 
+    public bool isNoUnits;
+
     public int Units
     {
         get { return _units; }
@@ -17,6 +19,8 @@ public class HeartsMaster : MonoBehaviour
             {
                 if(OnZeroUnits != null)
                     OnZeroUnits();
+
+                isNoUnits = true;
             }
             else if(value < _units)
             {

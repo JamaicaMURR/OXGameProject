@@ -59,10 +59,12 @@
     <Compile Include="Assets\Classes\Direction.cs" />
     <Compile Include="Assets\Scripts\JustMover.cs" />
     <Compile Include="Assets\Classes\Delegates.cs" />
+    <Compile Include="Assets\Scripts\Masters\TintMenuMaster.cs" />
     <Compile Include="Assets\Scripts\Ghost.cs" />
     <Compile Include="Assets\Scripts\Masters\ButtonsHandler.cs" />
     <Compile Include="Assets\Scripts\Masters\MergeMaster.cs" />
     <Compile Include="Assets\Scripts\SuitOrangator.cs" />
+    <Compile Include="Assets\Scripts\Fader.cs" />
     <Compile Include="Assets\Scripts\RecordKeeper.cs" />
     <Compile Include="Assets\Scripts\Masters\NetMaster.cs" />
     <Compile Include="Assets\Scripts\Masters\SpawnerArranger.cs" />
@@ -83,13 +85,12 @@
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Masters\DifficultyMaster.cs" />
     <Compile Include="Assets\Scripts\Masters\HeartsMaster.cs" />
+    <Compile Include="Assets\Scripts\Masters\IndependentClocks.cs" />
     <Compile Include="Assets\Scripts\SpriteAnimator.cs" />
     <Compile Include="Assets\Scripts\Masters\FieldInputHandler.cs" />
     <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
     <Compile Include="Assets\Classes\Cell.cs" />
-    <Compile Include="Assets\Scripts\Masters\TintMenuMaster.cs" />
-    <Compile Include="Assets\Scripts\Masters\IndependentClocks.cs" />
-    <Compile Include="Assets\Scripts\Fader.cs" />
+    <Compile Include="Assets\Scripts\TintMenuInfoTextScript.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Libs\Bycicles.dll" />

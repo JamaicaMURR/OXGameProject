@@ -5,8 +5,10 @@ using System;
 
 public class PointsMaster : MonoBehaviour
 {
-    int _points;
     int _dispalyPoints;
+
+    [HideInInspector]
+    public int points;
 
     float _timePassed;
 
@@ -28,7 +30,6 @@ public class PointsMaster : MonoBehaviour
     void Awake()
     {
         central.inputHandler.OnEscape += RememberRecord;
-        central.inputHandler.OnPause += RememberRecord;
         central.heartsMaster.OnZeroUnits += RememberRecord;
         central.mergeMaster.AtMerged += Reward;
     }
@@ -41,7 +42,7 @@ public class PointsMaster : MonoBehaviour
 
         if(_timePassed >= cypherRefreshPeriod)
         {
-            if(_points - _dispalyPoints != 0)
+            if(points - _dispalyPoints != 0)
                 _dispalyPoints++;
 
             _timePassed -= cypherRefreshPeriod;
@@ -79,7 +80,7 @@ public class PointsMaster : MonoBehaviour
             if(OnReward != null)
                 OnReward(rewardPoints);
 
-            _points += rewardPoints;
+            points += rewardPoints;
         }
     }
 
@@ -87,7 +88,7 @@ public class PointsMaster : MonoBehaviour
     {
         int oldRec = PlayerPrefs.GetInt("record");
 
-        if(_points > oldRec)
-            PlayerPrefs.SetInt("record", _points);
+        if(points > oldRec)
+            PlayerPrefs.SetInt("record", points);
     }
 }
