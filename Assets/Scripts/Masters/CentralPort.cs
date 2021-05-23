@@ -13,4 +13,5 @@ public class CentralPort : MonoBehaviour
     public DifficultyMaster difficultyMaster;
     public MessageMaster messageMaster;
     public IndependentClocks independentClocks;
+    public PopupsMaster popupsMaster;
 }

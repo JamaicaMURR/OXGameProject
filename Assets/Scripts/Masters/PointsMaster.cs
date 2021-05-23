@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using Bycicles.Ranges;
 
 public class PointsMaster : MonoBehaviour
 {
@@ -63,16 +64,16 @@ public class PointsMaster : MonoBehaviour
 
             if(pausersReward > 0)
             {
-                if(OnPausersReward != null)
-                    OnPausersReward(central.pausersMaster.MaximalUnits - central.pausersMaster.Units);
+                if(OnPausersReward != null && central.pausersMaster.Units != central.pausersMaster.MaximalUnits)
+                    OnPausersReward(pausersReward.NotAbove(central.pausersMaster.MaximalUnits - central.pausersMaster.Units));
 
                 central.pausersMaster.Units += pausersReward;
             }
 
             if(heartsReward > 0)
             {
-                if(OnHeartsReward != null)
-                    OnHeartsReward(central.heartsMaster.MaximalUnits - central.heartsMaster.Units);
+                if(OnHeartsReward != null && central.heartsMaster.Units != central.heartsMaster.MaximalUnits)
+                    OnHeartsReward(heartsReward.NotAbove(central.heartsMaster.MaximalUnits - central.heartsMaster.Units));
 
                 central.heartsMaster.Units += heartsReward;
             }

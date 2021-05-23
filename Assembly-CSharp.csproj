@@ -91,6 +91,9 @@
     <Compile Include="Assets\Scripts\Masters\CentralPort.cs" />
     <Compile Include="Assets\Classes\Cell.cs" />
     <Compile Include="Assets\Scripts\TintMenuInfoTextScript.cs" />
+    <Compile Include="Assets\Scripts\PopUpSpawner.cs" />
+    <Compile Include="Assets\Scripts\Pop.cs" />
+    <Compile Include="Assets\Scripts\Masters\PopupsMaster.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Libs\Bycicles.dll" />
